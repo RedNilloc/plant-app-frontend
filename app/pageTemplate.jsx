@@ -3,6 +3,7 @@ import PZHeader from "./components/header"
 import PZFooter from "./components/footer"
 import { StyleSheet } from "react-native"
 
+//NOTE: Only works with ScrollView not View right now. I don't know why. Needs fixing.
 export default function Index() {
     return (
         <>
@@ -25,6 +26,6 @@ const styles = StyleSheet.create({
         alignItems: "center",
         backgroundColor: "#ffffff",
         paddingBottom: "20%",
-        minHeight: 1000, //This may change per device. Unsure.
+        minHeight: 1000,
     },
 })
