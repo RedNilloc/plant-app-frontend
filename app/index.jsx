@@ -1,7 +1,7 @@
 import { Text, View, SafeAreaView, ScrollView } from "react-native"
 import PZHeader from "./components/header"
 import PZFooter from "./components/footer"
-import { StyleSheet } from "react-native"
+import Search from "./pages/Search";
 
 export default function Index() {
     return (
