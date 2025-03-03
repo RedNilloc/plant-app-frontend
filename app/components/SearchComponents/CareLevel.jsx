@@ -15,7 +15,7 @@ function CareLevel() {
   return (
     <View style={styles.container}>
       <DropDownPicker
-        placeholder="Maintenance level"
+        placeholder="Select maintenance level"
         style={styles.dropdown}
         open={open}
         value={value}

@@ -14,7 +14,7 @@ function IndoorOutdoor() {
   return (
     <View style={styles.container}>
       <DropDownPicker
-        placeholder="Select one"
+        placeholder="Select indoor/outdoor"
         style={styles.dropdown}
         open={open}
         value={value}

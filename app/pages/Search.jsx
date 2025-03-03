@@ -14,9 +14,9 @@ export default function Search() {
       <IndoorOutdoor></IndoorOutdoor>
       <CareLevel></CareLevel>
       <Button
-        title="Placeholder Submit Button"
+        title="Submit"
         color="green"
-        accessibilityLabel="Learn more about this purple button"
+        accessibilityLabel="Submit search parameters"
       />
     </View>
   );
@@ -24,11 +24,11 @@ export default function Search() {
 
 const styles = StyleSheet.create({
   container: {
-    alignItems: "center",
     marginTop: 20,
   },
   text: {
     fontSize: 20,
     fontWeight: "bold",
+    alignSelf: "center",
   },
 });
