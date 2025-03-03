@@ -1,6 +1,7 @@
 import { Text, View, SafeAreaView, ScrollView } from "react-native"
 import Card from "./components/cards/genericCard"
 import PZHeader from "./components/header"
+import PZFooter from "./components/footer"
 
 export default function Index() {
     const testCard = {
@@ -13,7 +14,7 @@ export default function Index() {
     return (
         <>
             <SafeAreaView style={{ flex: 0, backgroundColor: "#222926" }}>
-                <ScrollView>
+                <ScrollView bounces={false}>
                     <PZHeader>Heading Text</PZHeader>
                     <View
                         style={{
@@ -21,6 +22,7 @@ export default function Index() {
                             justifyContent: "center",
                             alignItems: "center",
                             backgroundColor: "#ffffff",
+                            paddingBottom: "20%",
                         }}
                     >
                         <Card contents={testCard}></Card>
@@ -35,6 +37,7 @@ export default function Index() {
                         <Card contents={testCard}></Card>
                     </View>
                 </ScrollView>
+                <PZFooter />
             </SafeAreaView>
         </>
     )
