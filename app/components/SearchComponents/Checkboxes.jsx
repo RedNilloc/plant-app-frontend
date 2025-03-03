@@ -6,6 +6,7 @@ const Checkboxes = () => {
   const [isSelected, setSelection] = useState(false);
   const [isSelected2, setSelection2] = useState(false);
   const [isSelected3, setSelection3] = useState(false);
+  const [isSelected4, setSelection4] = useState(false);
   return (
     <View style={styles.container}>
       <BouncyCheckbox
@@ -62,7 +63,7 @@ const Checkboxes = () => {
           fontFamily: "JosefinSans-Regular",
           textDecorationLine: "none",
         }}
-        onPress={setSelection3}
+        onPress={setSelection4}
       />
     </View>
   );
@@ -73,7 +74,9 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
     marginLeft: 50,
+    marginTop: 10,
     maxHeight: 150,
+    // backgroundColor: "lightgrey",
   },
 });
 
