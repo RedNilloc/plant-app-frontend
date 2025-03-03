@@ -38,8 +38,7 @@ const styles = StyleSheet.create({
         flexDirection: "row",
         backgroundColor: "#d9d9d9",
         width: "80%",
-        maxHeight: "12%",
-        minHeight: "86px",
+        Height: "5.5rem",
         marginBottom: "3%",
     },
     textContents: {
