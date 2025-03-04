@@ -26,7 +26,7 @@ function IndoorOutdoor() {
         zIndexInverse={1000}
         dropDownDirection="BOTTOM"
         dropDownContainerStyle={{
-          backgroundColor: "#e1ffd4",
+          backgroundColor: "#FFFFFF",
           marginLeft: 50,
           marginRight: 50,
           width: 220,
@@ -44,7 +44,7 @@ const styles = StyleSheet.create({
     marginLeft: 50,
     marginRight: 50,
     width: 220,
-    backgroundColor: "#e1ffd4",
+    backgroundColor: "#FFFFFF",
   },
 });
 
