@@ -1,9 +1,9 @@
-import { Text, View, SafeAreaView, ScrollView, StyleSheet } from "react-native"
-import PZHeader from "./components/header"
-import PZFooter from "./components/footer"
-import Search from "./pageContents/search"
+import { Text, View, StyleSheet, Button } from "react-native"
+import PZFooter from "../components/footer"
+import PZHeader from "../components/header"
+import Search from "../pageContents/search"
 
-export default function Index() {
+export default function searchPage() {
     return (
         <View style={{ height: "100%", backgroundColor: "#ffffff" }}>
             <SafeAreaView style={styles.sav}>
@@ -20,12 +20,12 @@ export default function Index() {
 }
 
 const styles = StyleSheet.create({
-    sav: { flex: 0, backgroundColor: "#222926" },
-    pageContent: {
-        paddingTop: "10%",
-        justifyContent: "center",
-        alignItems: "center",
-        backgroundColor: "#ffffff",
-        paddingBottom: "20%",
+    container: {
+        marginTop: 20,
+    },
+    text: {
+        fontSize: 20,
+        fontWeight: "bold",
+        alignSelf: "center",
     },
 })
