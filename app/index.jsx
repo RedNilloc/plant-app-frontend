@@ -1,6 +1,6 @@
 import SearchPage from "./pages/searchPage";
-import WelcomePge from "./pages/welcomePage";
+import WelcomePage from "./pages/welcomePage";
 
 export default function Index() {
-  return <WelcomePge></WelcomePge>;
+  return <WelcomePage></WelcomePage>;
 }
