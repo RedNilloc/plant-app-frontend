@@ -8,7 +8,7 @@ function PZFooter() {
             style={styles.container}
             colors={["transparent", "#222926"]}
             start={{ x: 0.5, y: 0.4 }}
-            end={{ x: 0.5, y: 0.9 }}
+            end={{ x: 0.5, y: 0.66 }}
         >
             <View style={styles.container}>
                 <Button style={styles.backButton}>{"<-"}</Button>
@@ -25,11 +25,11 @@ const styles = StyleSheet.create({
         display: "flex",
         flex: 2,
         flexDirection: "row",
-        marginBottom: "4%",
+        //  marginBottom: "4%",
         position: "absolute",
         bottom: 0,
         width: "100%",
-        height: 90,
+        height: 110,
     },
     backButton: {
         backgroundColor: "#8EC255",
