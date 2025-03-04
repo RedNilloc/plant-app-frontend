@@ -3,20 +3,22 @@ import { useState } from "react";
 
 import DropDownPicker from "react-native-dropdown-picker";
 
-function CareLevel() {
+export default function SunlightLevel() {
   const [open, setOpen] = useState(false);
   const [value, setValue] = useState(null);
   const [items, setItems] = useState([
-    { label: "Any", value: "any" },
-    { label: "Low", value: "low" },
-    { label: "Medium", value: "medium" },
-    { label: "High", value: "high" },
+    { label: "Full shade", value: "full shade" },
+    { label: "Full sun", value: "full sun" },
+    { label: "Deep shade", value: "deep shade" },
+    { label: "Part shade", value: "part shade" },
+    { label: "Filtered shade", value: "filtered shade" },
+    { label: "pPart sun/part shade", value: "part sun/part shade" },
   ]);
 
   return (
     <View style={styles.container}>
       <DropDownPicker
-        placeholder="Select maintenance"
+        placeholder="Select light level"
         style={styles.dropdown}
         open={open}
         value={value}
@@ -24,8 +26,8 @@ function CareLevel() {
         setOpen={setOpen}
         setValue={setValue}
         setItems={setItems}
-        zIndex={2000}
-        zIndexInverse={500}
+        zIndex={1000}
+        zIndexInverse={1000}
         dropDownDirection="BOTTOM"
         dropDownContainerStyle={{
           backgroundColor: "#FFFFFF",
@@ -43,8 +45,7 @@ function CareLevel() {
 
 const styles = StyleSheet.create({
   container: {
-    marginTop: 20,
-    marginBottom: 20,
+    marginTop: 5,
   },
   dropdown: {
     marginLeft: 50,
@@ -56,5 +57,3 @@ const styles = StyleSheet.create({
     paddingBottom: "0%",
   },
 });
-
-export default CareLevel;

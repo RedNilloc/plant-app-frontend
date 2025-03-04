@@ -7,12 +7,12 @@ export default function searchPage() {
   return (
     <View style={{ height: "100%", backgroundColor: "#ffffff" }}>
       <SafeAreaView style={styles.sav}>
-        <ScrollView bounces={false}>
-          <PZHeader>Search</PZHeader>
-          <View style={styles.pageContent}>
-            <Search />
-          </View>
-        </ScrollView>
+        {/* <ScrollView bounces={false}> */}
+        <PZHeader>Search</PZHeader>
+        <View style={styles.pageContent}>
+          <Search />
+        </View>
+        {/* </ScrollView> */}
       </SafeAreaView>
       <PZFooter />
     </View>

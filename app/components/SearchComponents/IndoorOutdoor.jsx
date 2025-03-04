@@ -7,14 +7,14 @@ function IndoorOutdoor() {
   const [open, setOpen] = useState(false);
   const [value, setValue] = useState(null);
   const [items, setItems] = useState([
-    { label: "Indoor", value: "indoor" },
-    { label: "Outdoor", value: "outdoor" },
+    { label: "Indoor only", value: "indoor" },
+    { label: "Outdoor compatible", value: "outdoor" },
   ]);
 
   return (
     <View style={styles.container}>
       <DropDownPicker
-        placeholder="Select indoor/outdoor"
+        placeholder="Select habitat"
         style={styles.dropdown}
         open={open}
         value={value}
