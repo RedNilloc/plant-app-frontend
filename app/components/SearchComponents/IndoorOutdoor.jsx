@@ -31,6 +31,9 @@ function IndoorOutdoor() {
           marginRight: 50,
           width: 220,
         }}
+        textStyle={{
+          fontSize: 16,
+        }}
       />
     </View>
   );
@@ -45,6 +48,9 @@ const styles = StyleSheet.create({
     marginRight: 50,
     width: 220,
     backgroundColor: "#FFFFFF",
+    borderColor: "#8EC255",
+    paddingTop: "0%",
+    paddingBottom: "0%",
   },
 });
 
