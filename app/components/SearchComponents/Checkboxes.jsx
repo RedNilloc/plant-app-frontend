@@ -12,7 +12,7 @@ const Checkboxes = () => {
     <View style={styles.container}>
       <BouncyCheckbox
         size={20}
-        fillColor="8EC255"
+        fillColor="#8EC255"
         unFillColor="#FFFFFF"
         text="Non-toxic for pets"
         marginTop="5"
@@ -26,7 +26,7 @@ const Checkboxes = () => {
       />
       <BouncyCheckbox
         size={20}
-        fillColor="8EC255"
+        fillColor="#8EC255"
         unFillColor="#FFFFFF"
         text="Non-toxic for humans"
         marginTop="5"
@@ -40,7 +40,7 @@ const Checkboxes = () => {
       />
       <BouncyCheckbox
         size={20}
-        fillColor="8EC255"
+        fillColor="#8EC255"
         unFillColor="#FFFFFF"
         text="Edible"
         marginTop="5"
@@ -54,7 +54,7 @@ const Checkboxes = () => {
       />
       <BouncyCheckbox
         size={20}
-        fillColor="8EC255"
+        fillColor="#8EC255"
         unFillColor="#FFFFFF"
         text="Flowering"
         marginTop="5"
@@ -75,7 +75,6 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
     marginLeft: 50,
-    marginTop: 10,
     maxHeight: 150,
     // backgroundColor: "lightgrey",
   },

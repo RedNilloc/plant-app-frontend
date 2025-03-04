@@ -15,7 +15,7 @@ function CareLevel() {
   return (
     <View style={styles.container}>
       <DropDownPicker
-        placeholder="Select maintenance level"
+        placeholder="Select maintenance"
         style={styles.dropdown}
         open={open}
         value={value}
@@ -27,10 +27,13 @@ function CareLevel() {
         zIndexInverse={500}
         dropDownDirection="BOTTOM"
         dropDownContainerStyle={{
-          backgroundColor: "#e1ffd4",
+          backgroundColor: "#FFFFFF",
           marginLeft: 50,
           marginRight: 50,
           width: 220,
+        }}
+        textStyle={{
+          fontSize: 16,
         }}
       />
     </View>
@@ -46,7 +49,10 @@ const styles = StyleSheet.create({
     marginLeft: 50,
     marginRight: 50,
     width: 220,
-    backgroundColor: "#e1ffd4",
+    backgroundColor: "#FFFFFF",
+    borderColor: "#8EC255",
+    paddingTop: "0%",
+    paddingBottom: "0%",
   },
 });
 
