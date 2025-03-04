@@ -26,14 +26,14 @@ export default function HomePage() {
         />
         <TouchableOpacity
           style={styles.button}
-          onPress={() => router.push("/signup")}
+          onPress={() => router.push("/pages/signupPage")}
         >
           <Text style={styles.textButton}>Sign Up</Text>
         </TouchableOpacity>
 
         <TouchableOpacity
           style={styles.button}
-          onPress={() => router.push("/login")}
+          onPress={() => router.push("/pages/loginPage")}
         >
           <Text style={styles.textButton}>Login</Text>
         </TouchableOpacity>

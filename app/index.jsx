@@ -1,5 +1,6 @@
 import SearchPage from "./pages/searchPage";
+import WelcomePage from "./pages/welcomePage";
 
 export default function Index() {
-  return <SearchPage></SearchPage>;
+  return <WelcomePage></WelcomePage>;
 }
