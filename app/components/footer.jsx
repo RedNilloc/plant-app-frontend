@@ -27,7 +27,7 @@ function PZFooter({ backAddress }) {
                 <View style={{ flex: 2, width: "30%" }}></View>
                 <Button
                     style={styles.button}
-                    onPress={() => router.push(backRoute)}
+                    onPress={() => router.push("/pages/notificationsPage")}
                 >
                     <Image
                         source={accountButtonIcon}
