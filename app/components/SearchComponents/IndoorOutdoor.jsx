@@ -1,6 +1,5 @@
 import { View, StyleSheet } from "react-native";
 import { useState } from "react";
-
 import DropDownPicker from "react-native-dropdown-picker";
 
 function IndoorOutdoor() {
