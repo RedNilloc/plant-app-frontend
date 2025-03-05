@@ -44,6 +44,9 @@ import {
   
     return (
       <SafeAreaView style={{ flex: 1, backgroundColor: "#ffffff" }}>
+        <KeyboardAvoidingView
+      behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+      style={styles.container}>
         <View style={styles.container}>
           <View style={styles.header}>
             <Text style={styles.title}>Create your account below!</Text>
@@ -131,6 +134,7 @@ import {
           </View>
         </View>
         <Image source={english_ivy} style={styles.bottomImg} />
+        </KeyboardAvoidingView>
       </SafeAreaView>
     );
   }
