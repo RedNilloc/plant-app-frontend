@@ -18,7 +18,7 @@ import Card from "../components/cards/genericCard";
 import { useState } from "react";
 import { useRouter } from "expo-router";
 
-export default function yourPlant() {
+export default function YourPlants() {
   const router = useRouter();
 
   const [zones, setZones] = useState([
