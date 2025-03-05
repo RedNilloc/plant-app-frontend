@@ -30,6 +30,7 @@ function IndoorOutdoor() {
           marginLeft: 50,
           marginRight: 50,
           width: 220,
+          borderRadius: 0,
         }}
         textStyle={{
           fontSize: 16,
@@ -51,6 +52,7 @@ const styles = StyleSheet.create({
     borderColor: "#8EC255",
     paddingTop: "0%",
     paddingBottom: "0%",
+    borderRadius: 0,
   },
 });
 
