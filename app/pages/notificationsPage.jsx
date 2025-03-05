@@ -3,7 +3,7 @@ import PZHeader from "../components/header"
 import PZFooter from "../components/footer"
 import { StyleSheet } from "react-native"
 
-export default function Index() {
+export default function NotificationsPage() {
     return (
         <View style={{ height: "100%", backgroundColor: "#ffffff" }}>
             <SafeAreaView style={styles.sav}>
