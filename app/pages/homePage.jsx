@@ -20,12 +20,12 @@ export default function SignedInView() {
   const pages = [
     {
       title: "View Your Plants",
-      path: "/plants",
+      path: "./yourPlantsPage",
       image: require("../../assets/images/pinkgreenplant.jpg"),
     },
     {
       title: "Search For Plants",
-      path: "/Search",
+      path: "./searchPage",
       image: require("../../assets/images/bluegreenplant.jpg"),
     },
     {
