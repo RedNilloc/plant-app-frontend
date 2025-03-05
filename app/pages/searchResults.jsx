@@ -11,7 +11,6 @@ export default function searchPage() {
         <ScrollView bounces={false} style={styles.scrollStyle}>
           <PZHeader>Search Results</PZHeader>
           <View style={styles.container}>
-            <Text> The results will be here</Text>
             <SortByPrice></SortByPrice>
             <SearchedPlantsList></SearchedPlantsList>
           </View>

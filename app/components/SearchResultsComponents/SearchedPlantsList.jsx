@@ -1,15 +1,20 @@
-import { Text, View } from "react-native";
+import { Text, View, StyleSheet } from "react-native";
 
-import Card from "../cards/genericCard";
+import ResultsListCard from "../cards/resultsListCard";
 import { useState } from "react";
 
 export default function SearchedPlantsList() {
   const [plantsList, setPlantsList] = useState({
     plants: [
-      { id: 1, title: "Roses", Sunlight: "Needs Sun", Water: "Once a day" },
+      {
+        id: 1,
+        title: "Sunflowers",
+        Sunlight: "Needs Sun",
+        Water: "Once a day",
+      },
       {
         id: 2,
-        title: "Cactus",
+        title: "Sunflowers",
         Sunlight: "Plenty of Sun required",
         Water: "Hardly any",
       },
@@ -17,13 +22,20 @@ export default function SearchedPlantsList() {
   });
 
   return (
-    <View>
-      {plantsList.plants.forEach((plant) => {
-        <View>
-          <Text>Here should be a plant</Text>
-          <Card contents={plant} />;
-        </View>;
-      })}
+    <View style={styles.container}>
+      {plantsList.plants.map((plant) => (
+        <View key={plant.id}>
+          <ResultsListCard contents={plant} />;
+        </View>
+      ))}
     </View>
   );
 }
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: "#ffffff",
+    alignItems: "center",
+  },
+});
