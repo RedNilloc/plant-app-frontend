@@ -1,6 +1,6 @@
 import { Text, View, SafeAreaView, ScrollView } from "react-native"
-import PZHeader from "./components/header"
-import PZFooter from "./components/footer"
+import PZHeader from "../components/header"
+import PZFooter from "../components/footer"
 import { StyleSheet } from "react-native"
 
 export default function Index() {
