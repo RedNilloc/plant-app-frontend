@@ -5,6 +5,7 @@ import { KronaOne_400Regular } from "@expo-google-fonts/krona-one";
 import { useFonts } from "expo-font";
 import testImage from "./test-sunflower.jpg";
 import { Button } from "react-native-elements";
+import { useState } from "react";
 
 function ResultsListCard({ contents, imgURL }) {
   const [fontsLoaded] = useFonts({
@@ -13,14 +14,17 @@ function ResultsListCard({ contents, imgURL }) {
     KronaOne_400Regular,
   });
 
+  const [liked, setLiked] = useState(false);
+
   function favouriteFunc() {
-    console.log("there will be a function i promise");
+    setLiked(!liked);
+    console.log("there will be a proper function i promise");
   }
 
   function addFunc() {
     console.log("there will be a function i promise");
   }
-  const { title, Sunlight, lineTwo, lineThree } = contents;
+  const { title, Sunlight, lineTwo, price } = contents;
 
   return (
     <View style={styles.container}>
@@ -29,13 +33,17 @@ function ResultsListCard({ contents, imgURL }) {
         <Text style={styles.titleText}>{title}</Text>
         <Text style={styles.lineOne}>{Sunlight}</Text>
         <Text style={styles.lineTwo}>{lineTwo}</Text>
-        <Text style={styles.lineThree}>{lineThree}</Text>
+        <Text style={styles.lineThree}>Price: {price}</Text>
       </View>
       <View>
         <Button
           buttonStyle={styles.favButton}
           title=""
-          icon={{ name: "star-o", type: "font-awesome" }}
+          icon={
+            liked
+              ? { name: "star", type: "font-awesome" }
+              : { name: "star-o", type: "font-awesome" }
+          }
           onPress={() => favouriteFunc()}
         />
         <Button
@@ -74,8 +82,8 @@ const styles = StyleSheet.create({
   },
   lineOne: {
     fontFamily: "Inter_300Light",
-    fontStyle: "italic",
-    fontSize: 16,
+
+    fontSize: 15,
   },
   lineTwo: {
     fontFamily: "Inter_300Light",
@@ -96,14 +104,14 @@ const styles = StyleSheet.create({
     borderRadius: 0,
     flex: 3,
     maxWidth: "100%",
-    height: "60%",
+    height: 50,
     backgroundColor: "yellow",
   },
   addButton: {
     borderRadius: 0,
     flex: 3,
     maxWidth: "100%",
-    height: "50%",
+    height: 50,
     backgroundColor: "#8EC255",
   },
   icon: {

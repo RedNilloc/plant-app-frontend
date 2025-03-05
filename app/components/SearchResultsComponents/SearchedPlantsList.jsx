@@ -11,12 +11,14 @@ export default function SearchedPlantsList() {
         title: "Sunflowers",
         Sunlight: "Needs Sun",
         Water: "Once a day",
+        price: "4.99",
       },
       {
         id: 2,
         title: "Sunflowers",
         Sunlight: "Plenty of Sun required",
         Water: "Hardly any",
+        price: "0.89",
       },
     ],
   });
@@ -25,7 +27,7 @@ export default function SearchedPlantsList() {
     <View style={styles.container}>
       {plantsList.plants.map((plant) => (
         <View key={plant.id}>
-          <ResultsListCard contents={plant} />;
+          <ResultsListCard contents={plant} />
         </View>
       ))}
     </View>
