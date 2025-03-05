@@ -15,6 +15,7 @@ export default function NameSearch() {
         placeholder="Search by plant name.."
         placeholderTextColor="#6b7280"
         value={form.plantName}
+        onChangeText={(plantName) => setForm({ ...form, plantName })}
       ></TextInput>
     </View>
   );
