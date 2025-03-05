@@ -3,8 +3,13 @@ import { LinearGradient } from "expo-linear-gradient"
 import { Text, View, StyleSheet, Image } from "react-native"
 import accountButtonIcon from "../../assets/icons/accountButtonIcon.png"
 import backButtonIcon from "../../assets/icons/backButtonIcon.png"
+import { useRouter } from "expo-router"
 
-function PZFooter() {
+function PZFooter({ backAddress }) {
+    const router = useRouter()
+
+    let backRoute = backAddress ? backAddress : "/"
+
     return (
         <LinearGradient
             style={styles.container}
@@ -13,11 +18,17 @@ function PZFooter() {
             end={{ x: 0.5, y: 0.8 }}
         >
             <View style={styles.container}>
-                <Button style={styles.button}>
+                <Button
+                    style={styles.button}
+                    onPress={() => router.push(backRoute)}
+                >
                     <Image source={backButtonIcon} style={styles.imageLeft} />
                 </Button>
                 <View style={{ flex: 2, width: "30%" }}></View>
-                <Button style={styles.button}>
+                <Button
+                    style={styles.button}
+                    onPress={() => router.push(backRoute)}
+                >
                     <Image
                         source={accountButtonIcon}
                         style={styles.imageRight}
