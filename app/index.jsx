@@ -39,6 +39,12 @@ export default function Index() {
         >
           <Text style={styles.buttonText}>Search page</Text>
         </TouchableOpacity>
+        <TouchableOpacity
+          style={styles.button}
+          onPress={() => router.push("/pages/yourPlantsPage")}
+        >
+          <Text style={styles.buttonText}>Your Plants page</Text>
+        </TouchableOpacity>
       </View>
     </SafeAreaView>
   );
