@@ -27,41 +27,42 @@ export default function Index() {
                     <Text style={styles.buttonText}>Login page</Text>
                 </TouchableOpacity>
 
-
-        <TouchableOpacity
-          style={styles.button}
-          onPress={() => router.push("/pages/homePage")}
-        >
-          <Text style={styles.buttonText}>Home page</Text>
-        </TouchableOpacity>
-        <TouchableOpacity
-          style={styles.button}
-          onPress={() => router.push("/pages/searchPage")}
-        >
-          <Text style={styles.buttonText}>Search page</Text>
-        </TouchableOpacity>
-        <TouchableOpacity
-          style={styles.button}
-          onPress={() => router.push("/pages/yourPlantsPage")}
-        >
-          <Text style={styles.buttonText}>Your Plants page</Text>
-        </TouchableOpacity>
+                <TouchableOpacity
+                    style={styles.button}
+                    onPress={() => router.push("/pages/homePage")}
+                >
+                    <Text style={styles.buttonText}>Home page</Text>
+                </TouchableOpacity>
+                <TouchableOpacity
+                    style={styles.button}
+                    onPress={() => router.push("/pages/searchPage")}
+                >
+                    <Text style={styles.buttonText}>Search page</Text>
+                </TouchableOpacity>
+                <TouchableOpacity
+                    style={styles.button}
+                    onPress={() => router.push("/pages/yourPlantsPage")}
+                >
+                    <Text style={styles.buttonText}>Your Plants page</Text>
+                </TouchableOpacity>
                 <TouchableOpacity
                     style={styles.button}
                     onPress={() => router.push("/pages/favouritesPage")}
                 >
                     <Text style={styles.buttonText}>Favourites</Text>
                 </TouchableOpacity>
-        <TouchableOpacity
-          style={styles.button}
-          onPress={() => router.push("/pages/notificationsPage")}
-          >
-            <Text style={styles.buttonText}>Your Notifications page</Text>
-          </TouchableOpacity>
-      </View>
-    </SafeAreaView>
-  );
-
+                <TouchableOpacity
+                    style={styles.button}
+                    onPress={() => router.push("/pages/notificationsPage")}
+                >
+                    <Text style={styles.buttonText}>
+                        Your Notifications page
+                    </Text>
+                </TouchableOpacity>
+            </View>
+        </SafeAreaView>
+    )
+}
 
 const styles = StyleSheet.create({
     container: {
