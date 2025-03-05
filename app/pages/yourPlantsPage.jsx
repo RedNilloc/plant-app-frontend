@@ -11,19 +11,26 @@ import {
   Keyboard,
   TouchableWithoutFeedback,
   PanResponder,
+  Animated,
 } from "react-native";
 import PZHeader from "../components/header";
 import PZFooter from "../components/footer";
 import Card from "../components/cards/genericCard";
 import { useState } from "react";
 import { useRouter } from "expo-router";
+import useKeyboardUp from "../utility/keyboardVisible";
 
 export default function YourPlants() {
   const router = useRouter();
+  const scrollY = new Animated.Value(0);
+  const translateY = scrollY.interpolate({
+    inputRange: [0, 45],
+    outputRange: [0, -45],
+  });
 
   const [zones, setZones] = useState([
     {
-      //plants object should be an empty array. Fake data for viewing purposes
+      //plants property should be an empty array. Fake data for viewing purposes
       name: "Balcony",
       plants: [
         { id: 1, title: "Roses", Sunlight: "Needs Sun", Water: "Once a day" },
@@ -36,7 +43,7 @@ export default function YourPlants() {
       ],
     },
     {
-      //plants object should be an empty array. Fake data for viewing purposes
+      //plants property should be an empty array. Fake data for viewing purposes
       name: "Garden",
       plants: [
         {
@@ -48,21 +55,15 @@ export default function YourPlants() {
       ],
     },
     {
-      //plants object should be an empty array. Fake data for viewing purposes
       name: "Indoor",
-      plants: [
-        // {
-        //   id: 4,
-        //   title: "Basil",
-        //   Sunlight: "Not much Sun required",
-        //   Water: "Some water",
-        // },
-      ],
+      plants: [],
     },
   ]);
 
   const [newZone, setNewZone] = useState("");
   const [swipedZone, setSwipedZone] = useState(null);
+
+  const isKeyboardOpen = useKeyboardUp();
 
   const addZone = () => {
     if (newZone.trim() === "") return;
@@ -94,17 +95,34 @@ export default function YourPlants() {
   };
 
   return (
-    <KeyboardAvoidingView
-      behavior={Platform.OS === "ios" ? "padding" : undefined}
-      style={styles.container}
-    >
-      <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-        <SafeAreaView style={styles.sav}>
-          <PZHeader>Your Plants</PZHeader>
+    <SafeAreaView style={styles.container}>
+      <TouchableWithoutFeedback
+        onPress={() => Keyboard.dismiss()}
+        accessible={false}
+      >
+        <KeyboardAvoidingView
+          style={styles.sav}
+          behavior={Platform.OS === "ios" ? "padding" : undefined}
+        >
           <FlatList
             data={zones}
             keyExtractor={(item) => item.name}
-            contentContainerStyle={styles.contentContainer}
+            onScroll={(e) => {
+              scrollY.setValue(e.nativeEvent.contentOffset.y);
+            }}
+            contentContainerStyle={[
+              styles.contentContainer,
+              { paddingBottom: isKeyboardOpen ? 50 : 100 },
+            ]}
+            ListHeaderComponent={
+              <Animated.View
+                style={{
+                  transform: [{ translateY: translateY }],
+                }}
+              >
+                <PZHeader>Your Plants</PZHeader>
+              </Animated.View>
+            }
             renderItem={({ item }) => {
               return (
                 <View
@@ -134,7 +152,9 @@ export default function YourPlants() {
 
                   <TouchableOpacity
                     style={styles.button}
-                    onPress={() => router.push("/pages/searchPage")}
+                    onPress={() => {
+                      router.push("");
+                    }}
                   >
                     <Text style={styles.textButton}>+ Find New Plant</Text>
                   </TouchableOpacity>
@@ -156,10 +176,10 @@ export default function YourPlants() {
             }
           />
 
-          <PZFooter />
-        </SafeAreaView>
+          {!isKeyboardOpen && <PZFooter />}
+        </KeyboardAvoidingView>
       </TouchableWithoutFeedback>
-    </KeyboardAvoidingView>
+    </SafeAreaView>
   );
 }
 
@@ -169,7 +189,10 @@ const styles = StyleSheet.create({
     backgroundColor: "#ffffff",
   },
   sav: { flex: 1, backgroundColor: "#222926" },
-  contentContainer: { paddingBottom: 50, backgroundColor: "#f9f9f9" },
+  contentContainer: {
+    paddingBottom: 80,
+    backgroundColor: "#f9f9f9",
+  },
   pageContent: {
     paddingTop: "10%",
     backgroundColor: "#ffffff",
@@ -180,7 +203,7 @@ const styles = StyleSheet.create({
     backgroundColor: "#f9f9f9",
   },
   sectionTitle: {
-    fontSize: "30",
+    fontSize: 30,
     margin: "20",
     textAlign: "center",
     textDecorationLine: "underline",
