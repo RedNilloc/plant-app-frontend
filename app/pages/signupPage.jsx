@@ -7,9 +7,10 @@ import {
     TextInput,
     TouchableOpacity,
     Alert,
+    KeyboardAvoidingView
   } from "react-native";
   import React, { useState } from "react";
-  import english_ivy from "../assets/images/english-ivy.jpg";
+  import english_ivy from "../../assets/images/english-ivy.jpg";
   
   export default function SignUp() {
     const [form, setForm] = useState({
