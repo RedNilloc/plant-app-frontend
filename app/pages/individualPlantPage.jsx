@@ -10,7 +10,7 @@ import {
 import PZHeader from "../components/header";
 import PZFooter from "../components/footer";
 import { useEffect, useState } from "react";
-//import axios from "axios";
+//import axios from "axios"; need to install
 
 export default function IndividualPlant({ plantId }) {
   const [plant, setPlant] = useState({
@@ -38,7 +38,7 @@ export default function IndividualPlant({ plantId }) {
   //   const [error, setError] = useState(null);
 
   //   useEffect(() => {
-  //     axios      MAYBE AXIOS have their own file (api.js). To action later when backend is complete
+  //     axios      MAYBE AXIOS will have their own file (api.js). To action later when backend is complete
   //       .get(`https://backend-project-FAKEURL.onrender.com/api/${plantId}`)
   //       .then((response) => {
   //         setPlant(response.data.plant);
