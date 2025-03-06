@@ -7,12 +7,16 @@ import {
     TextInput,
     TouchableOpacity,
     Alert,
-    KeyboardAvoidingView
+    KeyboardAvoidingView, 
+    Platform
   } from "react-native";
   import React, { useState } from "react";
+  import { useRouter } from "expo-router";
   import english_ivy from "../../assets/images/english-ivy.jpg";
   
   export default function SignUp() {
+    const router = useRouter();
+
     const [form, setForm] = useState({
       email: "",
       username: "",
@@ -39,7 +43,10 @@ import {
       Alert.alert(
         "SUCCESS!",
         "Account created successfully! Let's get you into the Plant Zone!"
+        
       );
+      router.push("/pages/signupConfirmationPage")
+
     };
   
     return (
