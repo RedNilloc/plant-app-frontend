@@ -6,7 +6,7 @@ import { useFonts } from "expo-font"
 import testImage from "./test-sunflower.jpg"
 import { Button } from "@react-navigation/elements"
 
-function NoButtonCard({ contents, imgURL }) {
+function NoButtonCard({ contents }) {
     // Handle Fonts
     const [fontsLoaded] = useFonts({
         Inter_300Light,
@@ -14,16 +14,32 @@ function NoButtonCard({ contents, imgURL }) {
         KronaOne_400Regular,
     })
 
-    const { title, lineOne, lineTwo, lineThree } = contents
+    if (!fontsLoaded) {
+        return (
+            <View>
+                <Text>Loading...</Text>
+            </View>
+        )
+    }
+
+    const { title, lineOne, lineTwo, lineThree, imgUrl } = contents
 
     return (
         <View style={styles.container}>
-            <Image style={styles.thumbnail} source={testImage} />
+            <Image style={styles.thumbnail} source={{ uri: imgUrl }} />
             <View style={styles.textContents}>
-                <Text style={styles.titleText}>{title}</Text>
-                <Text style={styles.lineOne}>{lineOne}</Text>
-                <Text style={styles.lineTwo}>{lineTwo}</Text>
-                <Text style={styles.lineThree}>{lineThree}</Text>
+                <Text numberOfLines={1} style={styles.titleText}>
+                    {title}
+                </Text>
+                <Text numberOfLines={1} style={styles.lineOne}>
+                    {lineOne}
+                </Text>
+                <Text numberOfLines={1} style={styles.lineTwo}>
+                    {lineTwo}
+                </Text>
+                <Text numberOfLines={1} style={styles.lineThree}>
+                    {lineThree}
+                </Text>
             </View>
         </View>
     )
@@ -47,6 +63,7 @@ const styles = StyleSheet.create({
         paddingTop: "1%",
         paddingBottom: "1%",
         paddingLeft: "2%",
+        paddingRight: "2%",
     },
 
     titleText: {
