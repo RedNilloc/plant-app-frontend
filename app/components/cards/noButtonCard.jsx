@@ -14,6 +14,14 @@ function NoButtonCard({ contents, imgURL }) {
         KronaOne_400Regular,
     })
 
+    if (!fontsLoaded) {
+        return (
+            <View>
+                <Text>Loading...</Text>
+            </View>
+        )
+    }
+
     const { title, lineOne, lineTwo, lineThree } = contents
 
     return (
