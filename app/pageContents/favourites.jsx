@@ -40,6 +40,7 @@ export default function Favourites({ userId }) {
             cardContent.title = plant.common_name
             cardContent.lineOne = convertToBinomial(plant.sci_name)
             cardContent.lineTwo = `${plant.maintenance} maintenance ${plant.type}`
+            cardContent.imgUrl = plant.default_image
 
             return cardContent
         })
