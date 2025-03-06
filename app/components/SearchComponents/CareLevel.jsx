@@ -12,6 +12,7 @@ function CareLevel() {
     { label: "Medium", value: "medium" },
     { label: "High", value: "high" },
   ]);
+  const [careLevel, setCareLevel] = useState("any");
 
   return (
     <View style={styles.container}>
@@ -31,11 +32,14 @@ function CareLevel() {
           backgroundColor: "#FFFFFF",
           marginLeft: 50,
           marginRight: 50,
-          width: 220,
+          width: 290,
           borderRadius: 0,
         }}
         textStyle={{
           fontSize: 16,
+        }}
+        onChangeValue={(value) => {
+          setCareLevel(value);
         }}
       />
     </View>
@@ -50,7 +54,7 @@ const styles = StyleSheet.create({
   dropdown: {
     marginLeft: 50,
     marginRight: 50,
-    width: 220,
+    width: 290,
     backgroundColor: "#FFFFFF",
     borderColor: "#8EC255",
     paddingTop: "0%",

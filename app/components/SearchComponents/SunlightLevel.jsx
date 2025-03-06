@@ -9,12 +9,10 @@ export default function SunlightLevel() {
   const [items, setItems] = useState([
     { label: "Full shade", value: "full shade" },
     { label: "Full sun", value: "full sun" },
-    { label: "Deep shade", value: "deep shade" },
-    { label: "Part shade", value: "part shade" },
     { label: "Filtered shade", value: "filtered shade" },
-    { label: "pPart sun/part shade", value: "part sun/part shade" },
+    { label: "Part sun/part shade", value: "part sun/part shade" },
   ]);
-
+  const [sunLevel, setSunLevel] = useState("any");
   return (
     <View style={styles.container}>
       <DropDownPicker
@@ -33,11 +31,14 @@ export default function SunlightLevel() {
           backgroundColor: "#FFFFFF",
           marginLeft: 50,
           marginRight: 50,
-          width: 220,
+          width: 290,
           borderRadius: 0,
         }}
         textStyle={{
           fontSize: 16,
+        }}
+        onChangeValue={(value) => {
+          setSunLevel(value);
         }}
       />
     </View>
@@ -51,7 +52,7 @@ const styles = StyleSheet.create({
   dropdown: {
     marginLeft: 50,
     marginRight: 50,
-    width: 220,
+    width: 290,
     backgroundColor: "#FFFFFF",
     borderColor: "#8EC255",
     paddingTop: "0%",
