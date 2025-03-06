@@ -13,32 +13,34 @@ function IndoorOutdoor() {
   const [isIndoor, setIsIndoor] = useState("either");
 
   return (
-    <DropDownPicker
-      placeholder="Select habitat"
-      style={styles.dropdown}
-      open={open}
-      value={value}
-      items={items}
-      setOpen={setOpen}
-      setValue={setValue}
-      setItems={setItems}
-      zIndex={3000}
-      zIndexInverse={1000}
-      dropDownDirection="BOTTOM"
-      dropDownContainerStyle={{
-        backgroundColor: "#FFFFFF",
-        marginLeft: 50,
-        marginRight: 50,
-        width: 290,
-        borderRadius: 0,
-      }}
-      textStyle={{
-        fontSize: 16,
-      }}
-      onChangeValue={(value) => {
-        setIsIndoor(value);
-      }}
-    />
+    <View style={styles.container}>
+      <DropDownPicker
+        placeholder="Select habitat"
+        style={styles.dropdown}
+        open={open}
+        value={value}
+        items={items}
+        setOpen={setOpen}
+        setValue={setValue}
+        setItems={setItems}
+        zIndex={3000}
+        zIndexInverse={1000}
+        dropDownDirection="BOTTOM"
+        dropDownContainerStyle={{
+          backgroundColor: "#FFFFFF",
+          marginLeft: 50,
+          marginRight: 50,
+          width: 290,
+          borderRadius: 0,
+        }}
+        textStyle={{
+          fontSize: 16,
+        }}
+        onChangeValue={(value) => {
+          setIsIndoor(value);
+        }}
+      />
+    </View>
   );
 }
 

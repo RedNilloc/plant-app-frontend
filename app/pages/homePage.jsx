@@ -30,7 +30,7 @@ export default function SignedInView() {
     },
     {
       title: "Favourites",
-      path: "/favourites",
+      path: "./favouritesPage",
       image: require("../../assets/images/flowers.jpg"),
     },
     {
