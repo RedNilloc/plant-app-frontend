@@ -1,19 +1,21 @@
 import React, { useState } from "react";
-import { Text, StyleSheet, View } from "react-native";
+import { StyleSheet, View } from "react-native";
 import BouncyCheckbox from "react-native-bouncy-checkbox";
 
 const Checkboxes = () => {
-  const [isSelected, setSelection] = useState(false);
-  const [isSelected2, setSelection2] = useState(false);
-  const [isSelected3, setSelection3] = useState(false);
-  const [isSelected4, setSelection4] = useState(false);
+  const [filterToxicToPets, setFilterToxicToPets] = useState(false);
+  const [filterToxicToHumans, setFilterToxicToHumans] = useState(false);
+  const [filterEdible, setFilterEdible] = useState(false);
+  const [filterFlowering, setFilterFlowering] = useState(false);
 
   return (
     <View style={styles.container}>
       <BouncyCheckbox
-        size={20}
+        isChecked={filterToxicToPets}
         fillColor="#8EC255"
         unFillColor="#FFFFFF"
+        size={25}
+        useBuiltInState={false}
         text="Non-toxic for pets"
         marginTop="5"
         iconStyle={{ borderColor: "#8EC255" }}
@@ -21,13 +23,20 @@ const Checkboxes = () => {
         textStyle={{
           fontFamily: "JosefinSans-Regular",
           textDecorationLine: "none",
+          fontSize: 17,
         }}
-        onPress={setSelection}
+        onPress={(checked) => {
+          // console.log("::Checked::", checked);
+          // console.log("::LocalChecked::", petToxicity);
+          setFilterToxicToPets(!filterToxicToPets);
+        }}
       />
       <BouncyCheckbox
-        size={20}
+        isChecked={filterToxicToHumans}
         fillColor="#8EC255"
         unFillColor="#FFFFFF"
+        size={25}
+        useBuiltInState={false}
         text="Non-toxic for humans"
         marginTop="5"
         iconStyle={{ borderColor: "#8EC255" }}
@@ -35,13 +44,20 @@ const Checkboxes = () => {
         textStyle={{
           fontFamily: "JosefinSans-Regular",
           textDecorationLine: "none",
+          fontSize: 17,
         }}
-        onPress={setSelection2}
+        onPress={(checked) => {
+          // console.log("::Checked::", checked);
+          // console.log("::LocalChecked::", petToxicity);
+          setFilterToxicToHumans(!filterToxicToHumans);
+        }}
       />
       <BouncyCheckbox
-        size={20}
+        isChecked={filterEdible}
         fillColor="#8EC255"
         unFillColor="#FFFFFF"
+        size={25}
+        useBuiltInState={false}
         text="Edible"
         marginTop="5"
         iconStyle={{ borderColor: "#8EC255" }}
@@ -49,13 +65,20 @@ const Checkboxes = () => {
         textStyle={{
           fontFamily: "JosefinSans-Regular",
           textDecorationLine: "none",
+          fontSize: 17,
         }}
-        onPress={setSelection3}
+        onPress={(checked) => {
+          // console.log("::Checked::", checked);
+          // console.log("::LocalChecked::", petToxicity);
+          setFilterEdible(!filterEdible);
+        }}
       />
       <BouncyCheckbox
-        size={20}
+        isChecked={filterFlowering}
         fillColor="#8EC255"
         unFillColor="#FFFFFF"
+        size={25}
+        useBuiltInState={false}
         text="Flowering"
         marginTop="5"
         iconStyle={{ borderColor: "#8EC255" }}
@@ -63,8 +86,13 @@ const Checkboxes = () => {
         textStyle={{
           fontFamily: "JosefinSans-Regular",
           textDecorationLine: "none",
+          fontSize: 17,
         }}
-        onPress={setSelection4}
+        onPress={(checked) => {
+          // console.log("::Checked::", checked);
+          // console.log("::LocalChecked::", petToxicity);
+          setFilterFlowering(!filterFlowering);
+        }}
       />
     </View>
   );
@@ -75,18 +103,9 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
     marginLeft: 50,
+    marginTop: 15,
     maxHeight: 150,
-    // backgroundColor: "lightgrey",
   },
 });
 
 export default Checkboxes;
-
-// size={20}
-// fillColor="green"
-// unFillColor="#FFFFFF"
-// text="Custom Checkbox"
-// iconStyle={{ borderColor: "green" }}
-// innerIconStyle={{ borderWidth: 2 }}
-// textStyle={{ fontFamily: "JosefinSans-Regular" }}
-// onPress={setSelection}
