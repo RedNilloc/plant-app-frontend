@@ -59,6 +59,12 @@ export default function Index() {
                         Your Notifications page
                     </Text>
                 </TouchableOpacity>
+        <TouchableOpacity
+          style={styles.button}
+          onPress={() => router.push("/pages/searchResults")}
+        >
+          <Text style={styles.buttonText}>Search results page</Text>
+        </TouchableOpacity>
             </View>
         </SafeAreaView>
     )
