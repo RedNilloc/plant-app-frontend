@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import { StyleSheet, View, TextInput } from "react-native";
 
-export default function NameSearch() {
+export default function LocationInput() {
   const [form, setForm] = useState({
-    plantName: "",
+    location: "",
   });
 
   return (
@@ -12,10 +12,10 @@ export default function NameSearch() {
         autoCapitalize="none"
         autoCorrect={false}
         style={styles.input}
-        placeholder="Search by plant name.."
+        placeholder="Input location...(optional)"
         placeholderTextColor="#6b7280"
         value={form.plantName}
-        onChangeText={(plantName) => setForm({ ...form, plantName })}
+        onChangeText={(location) => setForm({ ...form, location })}
       ></TextInput>
     </View>
   );

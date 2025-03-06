@@ -6,9 +6,11 @@ function IndoorOutdoor() {
   const [open, setOpen] = useState(false);
   const [value, setValue] = useState(null);
   const [items, setItems] = useState([
+    { label: "Any", value: "any" },
     { label: "Indoor only", value: "indoor" },
     { label: "Outdoor compatible", value: "outdoor" },
   ]);
+  const [isIndoor, setIsIndoor] = useState("either");
 
   return (
     <View style={styles.container}>
@@ -28,11 +30,14 @@ function IndoorOutdoor() {
           backgroundColor: "#FFFFFF",
           marginLeft: 50,
           marginRight: 50,
-          width: 220,
+          width: 290,
           borderRadius: 0,
         }}
         textStyle={{
           fontSize: 16,
+        }}
+        onChangeValue={(value) => {
+          setIsIndoor(value);
         }}
       />
     </View>
@@ -40,13 +45,10 @@ function IndoorOutdoor() {
 }
 
 const styles = StyleSheet.create({
-  container: {
-    marginTop: 20,
-  },
   dropdown: {
     marginLeft: 50,
     marginRight: 50,
-    width: 220,
+    width: 290,
     backgroundColor: "#FFFFFF",
     borderColor: "#8EC255",
     paddingTop: "0%",

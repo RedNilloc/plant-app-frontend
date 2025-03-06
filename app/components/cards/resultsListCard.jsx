@@ -6,18 +6,11 @@ import { useFonts } from "expo-font";
 import testImage from "./test-sunflower.jpg";
 import { Button } from "react-native-elements";
 import { useState } from "react";
-import DropDownPicker from "react-native-dropdown-picker";
+import SearchResultsModal from "./cardComponents/SearchResultsModal";
 
 function ResultsListCard({ contents, imgURL }) {
   const [modalVisible, setModalVisible] = useState(false);
   const [liked, setLiked] = useState(false);
-
-  const [open, setOpen] = useState(false);
-  const [value, setValue] = useState(null);
-  const [items, setItems] = useState([
-    { label: "Balcony", value: "balcony" },
-    { label: "Living room", value: "living room" },
-  ]);
 
   const [fontsLoaded] = useFonts({
     Inter_300Light,
@@ -38,57 +31,10 @@ function ResultsListCard({ contents, imgURL }) {
 
   return (
     <View style={styles.container}>
-      <Modal
-        animationType="slide"
-        transparent={true}
-        visible={modalVisible}
-        onRequestClose={() => {
-          setModalVisible(!modalVisible);
-        }}
-      >
-        <View style={styles.centeredView}>
-          <View style={styles.modalView}>
-            <Pressable
-              style={[styles.buttonClose]}
-              onPress={() => setModalVisible(!modalVisible)}
-            >
-              <Text style={styles.textStyle}>X</Text>
-            </Pressable>
-            <Text style={styles.modalText}>Add plant to</Text>
-            <View style={styles.container}>
-              <DropDownPicker
-                placeholder="Select habitat"
-                style={styles.dropdown}
-                open={open}
-                value={value}
-                items={items}
-                setOpen={setOpen}
-                setValue={setValue}
-                setItems={setItems}
-                zIndex={3000}
-                zIndexInverse={1000}
-                dropDownDirection="BOTTOM"
-                dropDownContainerStyle={{
-                  backgroundColor: "#FFFFFF",
-                  marginRight: 50,
-                  width: 255,
-                  borderRadius: 0,
-                }}
-                textStyle={{
-                  fontSize: 16,
-                }}
-              />
-            </View>
-            <Pressable
-              style={[styles.buttonYes]}
-              onPress={() => setModalVisible(!modalVisible)}
-            >
-              <Text style={styles.textStyle}>Yes</Text>
-            </Pressable>
-          </View>
-        </View>
-      </Modal>
-
+      <SearchResultsModal
+        modalVisible={modalVisible}
+        setModalVisible={setModalVisible}
+      ></SearchResultsModal>
       <Image style={styles.thumbnail} source={testImage} />
       <View style={styles.textContents}>
         <Text style={styles.titleText}>{title}</Text>
@@ -136,7 +82,6 @@ const styles = StyleSheet.create({
     paddingBottom: "1%",
     paddingLeft: "2%",
   },
-
   titleText: {
     fontFamily: "KronaOne_400Regular",
     fontSize: 16,
@@ -173,60 +118,5 @@ const styles = StyleSheet.create({
     maxWidth: "100%",
     height: 50,
     backgroundColor: "#8EC255",
-  },
-  icon: {
-    flex: 1,
-    marginLeft: 6,
-    maxWidth: "80%",
-  },
-  centeredView: {
-    flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-  },
-  modalView: {
-    margin: 20,
-    backgroundColor: "white",
-    width: 350,
-    padding: 35,
-    alignItems: "center",
-    shadowColor: "#000",
-    shadowOffset: {
-      width: 0,
-      height: 2,
-    },
-    shadowOpacity: 0.25,
-    shadowRadius: 4,
-    elevation: 5,
-  },
-  buttonClose: {
-    borderRadius: 0,
-    padding: 4,
-    margin: 2,
-    marginLeft: 260,
-    backgroundColor: "#e65544",
-  },
-  buttonYes: {
-    borderRadius: 0,
-    padding: 4,
-    margin: 2,
-    backgroundColor: "#8EC255",
-  },
-  textStyle: {
-    color: "white",
-    fontWeight: "bold",
-    textAlign: "center",
-  },
-  modalText: {
-    marginBottom: 15,
-    textAlign: "center",
-  },
-  dropdown: {
-    width: 255,
-    backgroundColor: "#FFFFFF",
-    borderColor: "#8EC255",
-    paddingTop: "0%",
-    paddingBottom: "0%",
-    borderRadius: 0,
   },
 });
