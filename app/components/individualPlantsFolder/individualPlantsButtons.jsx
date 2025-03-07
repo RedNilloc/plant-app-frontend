@@ -18,11 +18,18 @@ const styles = StyleSheet.create({
         alignItems: "center",
         backgroundColor: "#6CA431",
         paddingVertical: 15,
-        marginHorizontal: 30,
         alignItems: "center",
-        width: "30%",
+        width: "40%",
     },
     buttonText: {
         fontSize: 14,
+    },
+    buttonContainer: {
+        flexDirection: "row",
+        justifyContent: "space-between",
+        marginBottom: 10,
+        width: "80%",
+        marginLeft: "auto",
+        marginRight: "auto",
     },
 })
