@@ -2,7 +2,6 @@ import {
   Text,
   View,
   StyleSheet,
-  FlatList,
   TouchableOpacity,
   ImageBackground,
   SafeAreaView,
@@ -45,38 +44,24 @@ export default function SignedInView() {
   return (
     <SafeAreaView style={styles.sav}>
       <View style={styles.content}>
-        <FlatList
-          data={pages}
-          keyExtractor={(item) => item.path}
-          contentContainerStyle={styles.container}
-          renderItem={({ item }) => {
-            return (
-              <TouchableOpacity
-                style={styles.button}
-                onPress={() => router.push(item.path)}
-              >
-                <ImageBackground source={item.image} style={styles.image}>
-                  <Text style={styles.text}>{item.title}</Text>
-                </ImageBackground>
-              </TouchableOpacity>
-            );
-          }}
-        />
+        {pages.map(({ title, path, image }) => (
+          <View key={title}>
+            <TouchableOpacity
+              style={styles.button}
+              onPress={() => router.push(path)}
+            >
+              <ImageBackground source={image} style={styles.image}>
+                <Text style={styles.text}>{title}</Text>
+              </ImageBackground>
+            </TouchableOpacity>
+          </View>
+        ))}
       </View>
     </SafeAreaView>
   );
 }
 
 const styles = StyleSheet.create({
-  sav: { flex: 1, backgroundColor: "#222926" },
-  container: {
-    alignItems: "center",
-    paddingTop: 10,
-    paddingBottom: 20,
-  },
-  content: {
-    flex: 1,
-  },
   button: {
     height: height * 0.2,
     width: width,
@@ -90,7 +75,6 @@ const styles = StyleSheet.create({
   },
   text: {
     color: "white",
-    fontSize: width * 0.06,
     fontFamily: "FugazOne_400Regular",
     fontSize: 30,
     textAlign: "center",
