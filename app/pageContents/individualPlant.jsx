@@ -1,7 +1,7 @@
 import { Text, View, StyleSheet, Image, TouchableOpacity } from "react-native"
 import { useEffect, useState } from "react"
-import IndividualPlantsButtons from "../components/individualPlantsFolder/individualPlantsButtons"
-import ExtraInfo from "../components/individualPlantsFolder/individualPlantsExtraInfo"
+import IndividualPlantsButtons from "../components/individualPlantComponents/individualPlantsButtons"
+import ExtraInfo from "../components/individualPlantComponents/individualPlantsExtraInfo"
 import axios from "axios"
 
 function capitaliseFirstLetter(text) {

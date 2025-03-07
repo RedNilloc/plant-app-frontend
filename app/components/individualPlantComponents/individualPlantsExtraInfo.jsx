@@ -24,6 +24,7 @@ const styles = StyleSheet.create({
         borderRadius: 5,
         width: "80%",
         marginTop: 20,
+        marginBottom: 120,
     },
     textPriceBold: {
         fontWeight: "bold",
