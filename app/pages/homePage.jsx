@@ -1,97 +1,31 @@
-import {
-  Text,
-  View,
-  StyleSheet,
-  FlatList,
-  TouchableOpacity,
-  ImageBackground,
-  SafeAreaView,
-  Dimensions,
-} from "react-native";
-import { useRouter } from "expo-router";
+import { Text, View, SafeAreaView, ScrollView } from "react-native";
 import PZHeader from "../components/header";
 import PZFooter from "../components/footer";
+import SignedInView from "../pageContents/home";
+import { StyleSheet } from "react-native";
 
-const { width, height } = Dimensions.get("window");
-
-export default function SignedInView() {
-  const router = useRouter();
-
-  const pages = [
-    {
-      title: "View Your Plants",
-      path: "./yourPlantsPage",
-      image: require("../../assets/images/pinkgreenplant.jpg"),
-    },
-    {
-      title: "Search For Plants",
-      path: "./searchPage",
-      image: require("../../assets/images/bluegreenplant.jpg"),
-    },
-    {
-      title: "Favourites",
-      path: "./favouritesPage",
-      image: require("../../assets/images/flowers.jpg"),
-    },
-    {
-      title: "Community",
-      path: "/community",
-      image: require("../../assets/images/redpetalplant.jpg"),
-    },
-  ];
+export default function Home() {
   return (
-    <SafeAreaView style={styles.sav}>
-      <PZHeader>Home</PZHeader>
-      <View style={styles.content}>
-        <FlatList
-          data={pages}
-          keyExtractor={(item) => item.path}
-          contentContainerStyle={styles.container}
-          renderItem={({ item }) => {
-            return (
-              <TouchableOpacity
-                style={styles.button}
-                onPress={() => router.push(item.path)}
-              >
-                <ImageBackground source={item.image} style={styles.image}>
-                  <Text style={styles.text}>{item.title}</Text>
-                </ImageBackground>
-              </TouchableOpacity>
-            );
-          }}
-        />
-      </View>
+    <View style={{ height: "100%", backgroundColor: "#ffffff" }}>
+      <SafeAreaView style={styles.sav}>
+        <ScrollView bounces={false}>
+          <PZHeader>Home</PZHeader>
+          <View style={styles.pageContent}>
+            <SignedInView></SignedInView>
+          </View>
+        </ScrollView>
+      </SafeAreaView>
       <PZFooter />
-    </SafeAreaView>
+    </View>
   );
 }
 
 const styles = StyleSheet.create({
-  sav: { flex: 1, backgroundColor: "#222926" },
-  container: {
-    alignItems: "center",
-    paddingBottom: 20,
-  },
-  content: {
-    flex: 1,
-  },
-  button: {
-    height: height * 0.2,
-    width: width * 0.9,
-    marginVertical: 8,
-  },
-  image: {
-    flex: 1,
+  sav: { flex: 0, backgroundColor: "#222926" },
+  pageContent: {
     justifyContent: "center",
     alignItems: "center",
-    padding: 60,
-  },
-  text: {
-    color: "white",
-    fontSize: width * 0.06,
-    fontFamily: "Fugaz One",
-    textAlign: "center",
-    fontWeight: "bold",
-    backgroundColor: "rgba(0,0,0,0.2)",
+    backgroundColor: "#222926",
+    paddingBottom: "20%",
   },
 });
