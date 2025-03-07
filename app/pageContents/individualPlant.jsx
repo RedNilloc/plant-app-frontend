@@ -34,12 +34,11 @@ export default function IndividualPlant({ plantId }) {
             })
             .catch((error) => {
                 setLoading(false)
-                console.log(error)
                 setError("Failed to load plant")
             })
     }, [plantId])
 
-    if (loading || plant === false || !fontsLoaded) {
+    if (loading || !fontsLoaded) {
         return (
             <View>
                 <Text>Loading...</Text>
