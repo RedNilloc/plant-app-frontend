@@ -24,8 +24,6 @@ const styles = StyleSheet.create({
   sav: { flex: 0, backgroundColor: "#222926" },
   pageContent: {
     paddingTop: "10%",
-    justifyContent: "center",
-    alignItems: "center",
     backgroundColor: "#ffffff",
     paddingBottom: "20%",
   },
