@@ -23,9 +23,10 @@ const styles = StyleSheet.create({
   button: {
     backgroundColor: "#8EC255",
     margin: 20,
-    padding: 10,
+    padding: 5,
     width: 220,
     alignSelf: "center",
+    height: 55,
   },
   text: {
     color: "#ffffff",

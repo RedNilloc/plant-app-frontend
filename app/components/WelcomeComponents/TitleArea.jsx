@@ -29,10 +29,12 @@ const styles = StyleSheet.create({
   },
   title: {
     fontSize: 30,
-    margin: 25,
+    margin: 20,
+    marginBottom: 10,
     color: "#80AF4D",
     fontFamily: "FugazOne_400Regular",
     textAlign: "center",
+    height: 130,
   },
   contentContainer: {
     flex: 1,
@@ -40,9 +42,9 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   image: {
-    width: 200,
-    height: 200,
-    marginBottom: 50,
+    width: 220,
+    height: 220,
+    margin: 15,
   },
   button: {
     backgroundColor: "white",

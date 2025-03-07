@@ -5,10 +5,10 @@ import Welcome from "../pageContents/welcome";
 
 export default function WelcomePage() {
   return (
-    <View style={{ height: "100%", backgroundColor: "#ffffff" }}>
+    <View style={{ height: "100%", backgroundColor: "#E8F3DD" }}>
       <SafeAreaView style={styles.sav}>
         <ScrollView bounces={false}>
-          <PZHeader>Welcome!</PZHeader>
+          <PZHeader>Welcome</PZHeader>
           <View style={styles.pageContent}>
             <Welcome></Welcome>
           </View>
@@ -23,6 +23,6 @@ const styles = StyleSheet.create({
   pageContent: {
     justifyContent: "center",
     alignItems: "center",
-    backgroundColor: "#ffffff",
+    backgroundColor: "#E8F3DD",
   },
 });
