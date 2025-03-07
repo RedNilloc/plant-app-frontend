@@ -1,225 +1,32 @@
-import {
-    SafeAreaView,
-    Text,
-    View,
-    StyleSheet,
-    Image,
-    TextInput,
-    TouchableOpacity,
-    Alert,
-    KeyboardAvoidingView, 
-    Platform
-  } from "react-native";
-  import React, { useState } from "react";
-  import { useRouter } from "expo-router";
-  import english_ivy from "../../assets/images/english-ivy.jpg";
-  
-  export default function SignUp() {
-    const router = useRouter();
+import { View, SafeAreaView, ScrollView } from "react-native";
+import PZHeader from "../components/header";
+import PZFooter from "../components/footer";
+import SignUp from "../pageContents/signup";
+import { StyleSheet } from "react-native";
 
-    const [form, setForm] = useState({
-      email: "",
-      username: "",
-      password: "",
-      passwordConfirm: "",
-    });
-  
-    const handleSignUp = () => {
-      const email = form.email;
-      const username = form.username;
-      const password = form.password;
-      const passwordConfirm = form.passwordConfirm;
-  
-      if (!email || !username || !password || !passwordConfirm) {
-        Alert.alert("ERROR!", "Please fill in all fields");
-        return;
-      }
-  
-      if (password !== passwordConfirm) {
-        Alert.alert("ERROR!", "Passwords do not match");
-        return;
-      }
-  
-      Alert.alert(
-        "SUCCESS!",
-        "Account created successfully! Let's get you into the Plant Zone!"
-        
-      );
-      router.push("/pages/signupConfirmationPage")
-
-    };
-  
-    return (
-      <SafeAreaView style={{ flex: 1, backgroundColor: "#ffffff" }}>
-        <KeyboardAvoidingView
-      behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
-      style={styles.container}>
-        <View style={styles.container}>
-          <View style={styles.header}>
-            <Text style={styles.title}>Create your account below!</Text>
+export default function SignUpPage() {
+  return (
+    <View style={{ height: "100%", backgroundColor: "#ffffff" }}>
+      <SafeAreaView style={styles.sav}>
+        <ScrollView bounces={false}>
+          <PZHeader>Sign up</PZHeader>
+          <View style={styles.pageContent}>
+            <SignUp></SignUp>
           </View>
-  
-          <View style={styles.form}>
-            <View style={styles.input}>
-              <Text style={styles.inputLabel}>
-                Please provide a valid e-mail address:
-              </Text>
-  
-              <TextInput
-                autoCapitalize="none"
-                autoCorrect={false}
-                keyboardType="email-address"
-                style={styles.inputControl}
-                placeholder="yourname@somethingmail.com"
-                placeholderTextColor="#6b7280"
-                value={form.email}
-                onChangeText={(email) => setForm({ ...form, email })}
-              ></TextInput>
-            </View>
-  
-            <View style={styles.form}>
-              <View style={styles.input}>
-                <Text style={styles.inputLabel}>
-                  Please create your username:
-                </Text>
-  
-                <TextInput
-                  autoCapitalize="none"
-                  autoCorrect={false}
-                  keyboardType="default"
-                  style={styles.inputControl}
-                  placeholder="Your username here..."
-                  placeholderTextColor="#6b7280"
-                  value={form.username}
-                  onChangeText={(username) => setForm({ ...form, username })}
-                ></TextInput>
-              </View>
-  
-              <View style={styles.form}>
-                <View style={styles.input}>
-                  <Text style={styles.inputLabel}>
-                    Come up with a unique but memorable password:
-                  </Text>
-  
-                  <TextInput
-                    secureTextEntry
-                    style={styles.inputControl}
-                    placeholder="Your password here"
-                    placeholderTextColor="#6b7280"
-                    value={form.password}
-                    onChangeText={(password) => setForm({ ...form, password })}
-                  />
-                </View>
-  
-                <View style={styles.form}>
-                  <View style={styles.input}>
-                    <Text style={styles.inputLabel}>
-                      Please confirm your password below:
-                    </Text>
-  
-                    <TextInput
-                      secureTextEntry
-                      style={styles.inputControl}
-                      placeholderTextColor="#6b7280"
-                      value={form.passwordConfirm}
-                      onChangeText={(passwordConfirm) =>
-                        setForm({ ...form, passwordConfirm })
-                      }
-                    />
-                  </View>
-  
-                  <View style={styles.formAction}>
-                    <TouchableOpacity onPress={handleSignUp}>
-                      <View style={styles.button}>
-                        <Text style={styles.buttonText}>Create Account!</Text>
-                      </View>
-                    </TouchableOpacity>
-                  </View>
-                </View>
-              </View>
-            </View>
-          </View>
-        </View>
-        <Image source={english_ivy} style={styles.bottomImg} />
-        </KeyboardAvoidingView>
+        </ScrollView>
       </SafeAreaView>
-    );
-  }
-  
-  const styles = StyleSheet.create({
-    container: {
-      padding: 24,
-      flex: 1,
-    },
-    header: {
-      marginVertical: 36,
-      color: "#8EC255",
-    },
-    bottomImg: {
-      position: "absolute",
-      bottom: 0,
-      width: "100%",
-      height: 140,
-    },
-    title: {
-      fontSize: 27,
-      fontWeight: "700",
-      color: "#1e1e1e",
-      marginBottom: 6,
-      textAlign: "center",
-    },
-    subtitle: {
-      fontSize: 15,
-      fontWeight: "500",
-      color: "#929292",
-      textAlign: "center",
-    },
-    input: {
-      marginBottom: 16,
-    },
-    inputLabel: {
-      fontSize: 17,
-      fontWeight: "600",
-      color: "#222",
-      marginBottom: 8,
-    },
-    inputControl: {
-      height: 44,
-      backgroundColor: "#fff",
-      paddingVertical: 10,
-      paddingHorizontal: 16,
-      fontSize: 15,
-      fontWeight: "500",
-      color: "#222",
-    },
-    form: {
-      marginBottom: 24,
-      flex: 1,
-    },
-    formAction: {
-      marginVertical: 24,
-    },
-    formFooter: {
-      fontSize: 17,
-      fontWeight: "600",
-      color: "#222",
-      textAlign: "center",
-      letterSpacing: 0.15,
-    },
-    button: {
-      backgroundColor: "#B5E48C",
-      borderWidth: 1,
-      borderColor: "#075eec",
-      flexDirection: "row",
-      alignItems: "center",
-      justifyContent: "center",
-      paddingVertical: 10,
-      paddingHorizontal: 20,
-    },
-    buttonText: {
-      fontSize: 18,
-      fontWeight: "600",
-      color: "#fff",
-    },
-  });
-  
+      <PZFooter />
+    </View>
+  );
+}
+
+const styles = StyleSheet.create({
+  sav: { flex: 0, backgroundColor: "#222926" },
+  pageContent: {
+    paddingTop: "10%",
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: "#ffffff",
+    paddingBottom: "20%",
+  },
+});
