@@ -1,79 +1,28 @@
-import {
-  Text,
-  View,
-  SafeAreaView,
-  StyleSheet,
-  Image,
-  TouchableOpacity,
-} from "react-native";
-import { useRouter } from "expo-router";
+import { View, SafeAreaView, ScrollView } from "react-native";
+import PZHeader from "../components/header";
+import { StyleSheet } from "react-native";
+import Welcome from "../pageContents/welcome";
 
-export default function HomePage() {
-  const router = useRouter();
-
+export default function WelcomePage() {
   return (
-    <SafeAreaView style={styles.container}>
-      <Text style={styles.title}>
-        Welcome{"\n"}
-        to the {"\n"}
-        PlantZone
-      </Text>
-
-      <View style={styles.contentContainer}>
-        <Image //PLACEHOLDER FOR OUR LOGO
-          source={{ uri: "https://picsum.photos/200" }}
-          style={styles.image}
-        />
-        <TouchableOpacity
-          style={styles.button}
-          onPress={() => router.push("/pages/signupPage")}
-        >
-          <Text style={styles.textButton}>Sign Up</Text>
-        </TouchableOpacity>
-
-        <TouchableOpacity
-          style={styles.button}
-          onPress={() => router.push("/pages/loginPage")}
-        >
-          <Text style={styles.textButton}>Login</Text>
-        </TouchableOpacity>
-      </View>
-    </SafeAreaView>
+    <View style={{ height: "100%", backgroundColor: "#ffffff" }}>
+      <SafeAreaView style={styles.sav}>
+        <ScrollView bounces={false}>
+          <PZHeader>Welcome!</PZHeader>
+          <View style={styles.pageContent}>
+            <Welcome></Welcome>
+          </View>
+        </ScrollView>
+      </SafeAreaView>
+    </View>
   );
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "green",
-    paddingHorizontal: 20,
-  },
-  title: {
-    fontSize: 40,
-    margin: 25,
-    color: "white",
-  },
-  contentContainer: {
-    flex: 1,
+  sav: { flex: 0, backgroundColor: "#222926" },
+  pageContent: {
     justifyContent: "center",
     alignItems: "center",
-  },
-  image: {
-    width: 200,
-    height: 200,
-    marginBottom: 50,
-  },
-  button: {
-    backgroundColor: "white",
-    alignItems: "center",
-    paddingVertical: 15,
-    paddingHorizontal: 10,
-    marginVertical: 15,
-    width: "50%",
-    borderRadius: 5,
-  },
-  textButton: {
-    fontSize: 25,
-    fontWeight: "bold",
+    backgroundColor: "#ffffff",
   },
 });

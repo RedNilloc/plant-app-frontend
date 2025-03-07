@@ -29,10 +29,4 @@ const styles = StyleSheet.create({
   dropdowns: {
     alignItems: "center",
   },
-  button: {
-    backgroundColor: "#8EC255",
-    margin: 20,
-    padding: 10,
-    width: 200,
-  },
 });
