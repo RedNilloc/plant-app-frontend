@@ -126,10 +126,7 @@ export default function YourPlants() {
 
                 <TouchableOpacity
                   style={styles.newPlantButton}
-                  onPress={() => {
-                    // direct to a page to find new plants
-                    router.push("");
-                  }}
+                  onPress={() => router.push("/pages/searchPage")}
                 >
                   <Text style={styles.textButton}>+ Find New Plant</Text>
                 </TouchableOpacity>
