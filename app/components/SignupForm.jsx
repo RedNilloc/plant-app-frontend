@@ -117,7 +117,7 @@ const styles = StyleSheet.create({
     color: "#8EC255",
   },
   form: {
-    marginBottom: 24,
+    margin: 24,
     flex: 1,
   },
   inputLabel: {
