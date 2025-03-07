@@ -19,7 +19,6 @@ export default function IndividualPlant({ plantId }) {
                 `https://plant-app-backend-87sk.onrender.com/api/plants/${plantId}`
             )
             .then((response) => {
-                console.log(response.data.plant)
                 setPlant(response.data.plant)
                 setLoading(false)
             })
@@ -30,7 +29,7 @@ export default function IndividualPlant({ plantId }) {
             })
     }, [plantId])
 
-    if (loading) {
+    if (loading || plant === false) {
         return (
             <View>
                 <Text>Loading...</Text>
@@ -38,13 +37,14 @@ export default function IndividualPlant({ plantId }) {
         )
     }
 
+    console.log(plant.default_image)
     return (
         <View styles={styles.container}>
             <Text style={styles.title}>
                 {capitaliseFirstLetter(plant.common_name)}
             </Text>
 
-            <Image source={{ uri: plant.default_image }} style={styles.image} />
+            <Image style={styles.image} source={{ uri: plant.default_image }} />
 
             <IndividualPlantsButtons />
 
@@ -67,11 +67,13 @@ const styles = StyleSheet.create({
         marginRight: "auto",
     },
     image: {
-        width: "80%",
-        height: 200,
+        flex: 1,
+        minWidth: "80%",
+        height: 120,
         marginBottom: 30,
         marginLeft: "auto",
         marginRight: "auto",
+        backgroundColor: "red",
     },
 
     descriptionContainer: {
