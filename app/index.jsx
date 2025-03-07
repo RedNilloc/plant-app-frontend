@@ -77,6 +77,18 @@ export default function Index() {
           >
             <Text style={styles.buttonText}>Signup page</Text>
           </TouchableOpacity>
+          <TouchableOpacity
+            style={styles.button}
+            onPress={() => router.push("/pages/settingsPage")}
+          >
+            <Text style={styles.buttonText}>Settings</Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            style={styles.button}
+            onPress={() => router.push("/pages/signupConfirmationPage")}
+          >
+            <Text style={styles.buttonText}>Sign up confirmation page</Text>
+          </TouchableOpacity>
         </View>
       </SafeAreaView>
     </ScrollView>
