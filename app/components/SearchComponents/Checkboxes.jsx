@@ -1,12 +1,14 @@
 import React, { useState } from "react";
 import { StyleSheet, View } from "react-native";
 import BouncyCheckbox from "react-native-bouncy-checkbox";
+import { useSearch } from "../../contexts/searchContext";
 
 const Checkboxes = () => {
   const [filterToxicToPets, setFilterToxicToPets] = useState(false);
   const [filterToxicToHumans, setFilterToxicToHumans] = useState(false);
   const [filterEdible, setFilterEdible] = useState(false);
   const [filterFlowering, setFilterFlowering] = useState(false);
+  const { params } = useSearch();
 
   return (
     <View style={styles.container}>
@@ -26,9 +28,8 @@ const Checkboxes = () => {
           fontSize: 17,
         }}
         onPress={(checked) => {
-          // console.log("::Checked::", checked);
-          // console.log("::LocalChecked::", petToxicity);
           setFilterToxicToPets(!filterToxicToPets);
+          params.poisonous_to_pets = filterToxicToPets.toString();
         }}
       />
       <BouncyCheckbox
@@ -47,9 +48,8 @@ const Checkboxes = () => {
           fontSize: 17,
         }}
         onPress={(checked) => {
-          // console.log("::Checked::", checked);
-          // console.log("::LocalChecked::", petToxicity);
           setFilterToxicToHumans(!filterToxicToHumans);
+          params.poisonous_to_humans = filterToxicToHumans.toString();
         }}
       />
       <BouncyCheckbox
@@ -68,9 +68,8 @@ const Checkboxes = () => {
           fontSize: 17,
         }}
         onPress={(checked) => {
-          // console.log("::Checked::", checked);
-          // console.log("::LocalChecked::", petToxicity);
           setFilterEdible(!filterEdible);
+          params.edible = (!filterEdible).toString();
         }}
       />
       <BouncyCheckbox
@@ -89,9 +88,8 @@ const Checkboxes = () => {
           fontSize: 17,
         }}
         onPress={(checked) => {
-          // console.log("::Checked::", checked);
-          // console.log("::LocalChecked::", petToxicity);
           setFilterFlowering(!filterFlowering);
+          params.flowers = (!filterFlowering).toString();
         }}
       />
     </View>

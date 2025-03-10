@@ -1,16 +1,18 @@
 import { View, StyleSheet } from "react-native";
 import { useState } from "react";
 import DropDownPicker from "react-native-dropdown-picker";
+import { useSearch } from "../../contexts/searchContext";
 
 function IndoorOutdoor() {
   const [open, setOpen] = useState(false);
   const [value, setValue] = useState(null);
   const [items, setItems] = useState([
     { label: "Any", value: "any" },
-    { label: "Indoor only", value: "indoor" },
-    { label: "Outdoor compatible", value: "outdoor" },
+    { label: "Indoor only", value: "true" },
+    { label: "Outdoor compatible", value: "false" },
   ]);
-  const [isIndoor, setIsIndoor] = useState("either");
+
+  const { params } = useSearch();
 
   return (
     <View style={styles.container}>
@@ -37,7 +39,7 @@ function IndoorOutdoor() {
           fontSize: 16,
         }}
         onChangeValue={(value) => {
-          setIsIndoor(value);
+          params.tropical = value;
         }}
       />
     </View>

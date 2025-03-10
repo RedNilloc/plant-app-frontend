@@ -1,6 +1,6 @@
 import { View, StyleSheet } from "react-native";
 import { useState } from "react";
-
+import { useSearch } from "../../contexts/searchContext";
 import DropDownPicker from "react-native-dropdown-picker";
 
 export default function SunlightLevel() {
@@ -12,7 +12,7 @@ export default function SunlightLevel() {
     { label: "Filtered shade", value: "filtered shade" },
     { label: "Part sun/part shade", value: "part sun/part shade" },
   ]);
-  const [sunLevel, setSunLevel] = useState("any");
+  const { params } = useSearch();
   return (
     <View style={styles.container}>
       <DropDownPicker
@@ -38,7 +38,7 @@ export default function SunlightLevel() {
           fontSize: 16,
         }}
         onChangeValue={(value) => {
-          setSunLevel(value);
+          params.sunlight = value;
         }}
       />
     </View>
