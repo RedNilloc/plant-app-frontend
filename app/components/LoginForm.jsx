@@ -10,6 +10,7 @@ import {
 import React, { useState } from "react";
 import poison_ivy from "../../assets/images/poison-ivy.png.png";
 import { useRouter } from "expo-router";
+import axios from "axios";
 
 export default function LoginForm() {
   const router = useRouter();
@@ -17,6 +18,13 @@ export default function LoginForm() {
     email: "",
     password: "",
   });
+
+  function handleLogin() {
+    if (!form) {
+      Alert.alert("ERROR!", "Please enter details");
+      return;
+    }
+  }
 
   return (
     <View style={styles.container}>
