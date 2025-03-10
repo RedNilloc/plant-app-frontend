@@ -9,11 +9,14 @@ import {
 } from "react-native";
 import React, { useState } from "react";
 import { useRouter } from "expo-router";
+import axios from "axios";
+import useGeolocation from "../utility/geolocation";
 
 const { width, height } = Dimensions.get("window");
 
 export default function SignupForm() {
   const router = useRouter();
+  const location = useGeolocation();
 
   const [form, setForm] = useState({
     email: "",
@@ -38,12 +41,32 @@ export default function SignupForm() {
       return;
     }
 
-    Alert.alert(
-      "SUCCESS!",
-      "Account created successfully! Let's get you into the Plant Zone!"
-    );
-    router.push("/pages/signupConfirmationPage");
+    let geolocation = "NotProvided";
+
+    if (location) {
+      geolocation = `${location.coords.latitude}, ${location.coords.longitude}`;
+    }
+
+    const newUserInfo = { username, email, geolocation };
+
+    axios
+      .post(
+        `https://plant-app-backend-87sk.onrender.com/api/users`,
+        newUserInfo
+      )
+      .then((response) => {
+        const { user_id } = response.data.user;
+        Alert.alert(
+          "SUCCESS!",
+          "Account created successfully! Let's get you into the Plant Zone!"
+        );
+        router.push("/pages/signupConfirmationPage");
+      })
+      .catch((error) => {
+        Alert.alert("ERROR!", "Unable to create an account! Please try again");
+      });
   };
+
   return (
     <View style={styles.form}>
       <Text style={styles.inputLabel}>
