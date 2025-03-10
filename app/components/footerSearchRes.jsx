@@ -23,7 +23,7 @@ function PZFooterSearch({ backAddress }) {
         <Button
           style={styles.button}
           onPress={() => {
-            router.push(backRoute);
+            router.push("/pages/searchPage");
           }}
         >
           <Image source={backButtonIcon} style={styles.imageLeft} />

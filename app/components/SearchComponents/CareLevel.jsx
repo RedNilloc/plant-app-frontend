@@ -1,7 +1,6 @@
 import { View, StyleSheet } from "react-native";
 import { useState } from "react";
 import { useSearch } from "../../contexts/searchContext";
-
 import DropDownPicker from "react-native-dropdown-picker";
 
 function CareLevel() {

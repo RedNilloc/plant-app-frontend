@@ -9,14 +9,14 @@ export default function NameSearch() {
   const { params } = useSearch();
   return (
     <View>
-      {/* <Text>
+      <Text>
         Current params: name: {params.common_name}, indoor:
         {params.tropical}, maintenance:
         {params.maintenance},sunlight: {params.sunlight}, poisonous_to_pets:
         {params.poisonous_to_pets}, poisonous_to_humans:
         {params.poisonous_to_humans}, edible: {params.edible}, flowers:
         {params.flowers}
-      </Text> */}
+      </Text>
 
       <TextInput
         autoCapitalize="none"
