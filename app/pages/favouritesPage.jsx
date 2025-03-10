@@ -4,7 +4,7 @@ import PZFooter from "../components/footer"
 import { StyleSheet } from "react-native"
 import Favourites from "../pageContents/favourites"
 
-TESTING_USER_ID = 2
+TESTING_USER_ID = 3
 
 export default function FavouritesPage() {
     return (
