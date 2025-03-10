@@ -15,7 +15,6 @@ export default function IndividualPlantsButtons({ userId, plantId }) {
             )
             .then((res) => {
                 res.data.plants.forEach((val) => {
-                    console.log(val.plant_id)
                     if (val.plant_id === plantId) {
                         setIsFavourite(true)
                         setFavouritePlantId(val.favourite_plant_key)
@@ -29,7 +28,6 @@ export default function IndividualPlantsButtons({ userId, plantId }) {
     }
 
     function addToFavourites() {
-        console.log("adding")
         setIsFavourite(true)
         axios
             .post(
@@ -37,8 +35,6 @@ export default function IndividualPlantsButtons({ userId, plantId }) {
                 { user: userId, plant: plantId }
             )
             .then((res) => {
-                console.log("Posted!")
-
                 setIsFavourite(true)
                 setFavouritePlantId(res.data.favePlant.favourite_plant_key)
             })
@@ -52,14 +48,12 @@ export default function IndividualPlantsButtons({ userId, plantId }) {
                 `https://plant-app-backend-87sk.onrender.com/api/users/fave_plants/${favouritePlantId}`
             )
             .then(() => {
-                console.log("Removed!")
                 setIsFavourite(false)
                 setFavouritePlantId(false)
             })
     }
 
     function toggleFavourites() {
-        console.log(isFavourite)
 
         if (isFavourite) {
             removeFromFavourites()
