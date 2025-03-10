@@ -1,5 +1,6 @@
 import { View, StyleSheet } from "react-native";
 import { useState } from "react";
+import { useSearch } from "../../contexts/searchContext";
 
 import DropDownPicker from "react-native-dropdown-picker";
 
@@ -9,11 +10,10 @@ function CareLevel() {
   const [items, setItems] = useState([
     { label: "Any", value: "any" },
     { label: "Low", value: "low" },
-    { label: "Medium", value: "medium" },
+    { label: "Medium", value: "moderate" },
     { label: "High", value: "high" },
   ]);
-  const [careLevel, setCareLevel] = useState("any");
-
+  const { params } = useSearch();
   return (
     <View style={styles.container}>
       <DropDownPicker
@@ -39,7 +39,7 @@ function CareLevel() {
           fontSize: 16,
         }}
         onChangeValue={(value) => {
-          setCareLevel(value);
+          params.maintenance = value;
         }}
       />
     </View>

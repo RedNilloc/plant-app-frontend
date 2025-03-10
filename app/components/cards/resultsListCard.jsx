@@ -8,6 +8,12 @@ import { Button } from "react-native-elements";
 import { useState } from "react";
 import SearchResultsModal from "./cardComponents/SearchResultsModal";
 
+function capitaliseFirstLetter(text) {
+  if (text) {
+    return text.charAt(0).toUpperCase() + text.slice(1);
+  }
+}
+
 function ResultsListCard({ contents, imgURL }) {
   const [modalVisible, setModalVisible] = useState(false);
   const [liked, setLiked] = useState(false);
@@ -27,7 +33,7 @@ function ResultsListCard({ contents, imgURL }) {
     setModalVisible(true);
     console.log("there will be a function i promise");
   }
-  const { title, Sunlight, lineTwo, price } = contents;
+  const { default_image, common_name, watering, price } = contents;
 
   return (
     <View style={styles.container}>
@@ -35,11 +41,12 @@ function ResultsListCard({ contents, imgURL }) {
         modalVisible={modalVisible}
         setModalVisible={setModalVisible}
       ></SearchResultsModal>
-      <Image style={styles.thumbnail} source={testImage} />
+      <Image style={styles.thumbnail} source={default_image} />
       <View style={styles.textContents}>
-        <Text style={styles.titleText}>{title}</Text>
-        <Text style={styles.lineOne}>{Sunlight}</Text>
-        <Text style={styles.lineTwo}>{lineTwo}</Text>
+        <Text style={styles.titleText}>
+          {capitaliseFirstLetter(common_name)}
+        </Text>
+        <Text style={styles.lineOne}>Watering frequency: {watering}</Text>
         <Text style={styles.lineThree}>Price: {price}</Text>
       </View>
       <View>
@@ -78,17 +85,19 @@ const styles = StyleSheet.create({
     flex: 2,
     flexDirection: "column",
     height: "100%",
-    paddingTop: "1%",
+    paddingTop: "2%",
     paddingBottom: "1%",
     paddingLeft: "2%",
   },
   titleText: {
     fontFamily: "KronaOne_400Regular",
     fontSize: 16,
+    marginBottom: 5,
   },
   lineOne: {
     fontFamily: "Inter_300Light",
     fontSize: 15,
+    marginBottom: 10,
   },
   lineTwo: {
     fontFamily: "Inter_300Light",
