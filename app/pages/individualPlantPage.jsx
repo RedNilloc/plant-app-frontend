@@ -13,6 +13,7 @@ import { useEffect, useState } from "react"
 import IndividualPlant from "../pageContents/individualPlant"
 
 const TESTING_PLANT_ID = 1195
+const TESTING_USER_ID = 3
 
 export default function IndividualPlantPage() {
     return (
@@ -21,7 +22,10 @@ export default function IndividualPlantPage() {
                 <ScrollView bounces={false}>
                     <PZHeader>Plant details</PZHeader>
                     <View style={styles.pageContent}>
-                        <IndividualPlant plantId={TESTING_PLANT_ID} />
+                        <IndividualPlant
+                            userId={TESTING_USER_ID}
+                            plantId={TESTING_PLANT_ID}
+                        />
                     </View>
                 </ScrollView>
             </SafeAreaView>

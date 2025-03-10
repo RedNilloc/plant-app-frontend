@@ -12,7 +12,7 @@ function capitaliseFirstLetter(text) {
     return text.charAt(0).toUpperCase() + text.slice(1)
 }
 
-export default function IndividualPlant({ plantId }) {
+export default function IndividualPlant({ plantId, userId }) {
     const [plant, setPlant] = useState(false)
     const [loading, setLoading] = useState(true)
     const [error, setError] = useState(null)
@@ -46,7 +46,6 @@ export default function IndividualPlant({ plantId }) {
         )
     }
 
-    console.log(plant.default_image)
     return (
         <View>
             <Text style={styles.title}>
@@ -59,7 +58,7 @@ export default function IndividualPlant({ plantId }) {
                 {convertToBinomial(plant.sci_name)}
             </Text>
 
-            <IndividualPlantsButtons />
+            <IndividualPlantsButtons userId={userId} plantId={plantId} />
 
             <View style={styles.descriptionContainer}>
                 <Text style={styles.description}>{plant.description}</Text>
