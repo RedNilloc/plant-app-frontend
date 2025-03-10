@@ -1,12 +1,12 @@
 import { Text, View, StyleSheet, TouchableOpacity } from "react-native"
 import axios, { Axios } from "axios"
 import { useEffect, useState } from "react"
+import SearchResultsModal from "../cards/cardComponents/SearchResultsModal"
 
 export default function IndividualPlantsButtons({ userId, plantId }) {
-    //Need to check if favourited already.
-
     const [isFavourite, setIsFavourite] = useState(false)
     const [favouritePlantId, setFavouritePlantId] = useState(false)
+    const [modalVisible, setModalVisible] = useState(false)
 
     useEffect(() => {
         axios
@@ -22,9 +22,11 @@ export default function IndividualPlantsButtons({ userId, plantId }) {
                     }
                 })
             })
-    }, [isFavourite])
+    }, [isFavourite, modalVisible])
 
-    function addToPlants() {}
+    function addToPlants() {
+        setModalVisible(true)
+    }
 
     function addToFavourites() {
         console.log("adding")
@@ -68,7 +70,11 @@ export default function IndividualPlantsButtons({ userId, plantId }) {
 
     return (
         <View style={styles.buttonContainer}>
-            <TouchableOpacity style={styles.button}>
+            <SearchResultsModal
+                modalVisible={modalVisible}
+                setModalVisible={setModalVisible}
+            ></SearchResultsModal>
+            <TouchableOpacity style={styles.button} onPress={addToPlants}>
                 <Text style={styles.buttonText}>Add to Plants</Text>
             </TouchableOpacity>
             <TouchableOpacity style={styles.button} onPress={toggleFavourites}>
