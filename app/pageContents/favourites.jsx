@@ -1,5 +1,5 @@
 import { Text, View, StyleSheet, TouchableOpacity } from "react-native"
-import NoButtonCard from "../components/cards/noButtonCard"
+import NoButtonCard from "../components/cards/favouritesCard"
 import { useEffect, useState } from "react"
 import axios from "axios"
 import convertToBinomial from "../utility/formatBinomialNames"
@@ -41,6 +41,7 @@ export default function Favourites({ userId }) {
             cardContent.lineOne = convertToBinomial(plant.sci_name)
             cardContent.lineTwo = `${plant.maintenance} maintenance ${plant.type}`
             cardContent.imgUrl = plant.default_image
+            cardContent.plantId = plant.plant_id
 
             return cardContent
         })
