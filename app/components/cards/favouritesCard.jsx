@@ -1,13 +1,14 @@
-import { Text, View, StyleSheet, Image } from "react-native"
+import { Text, View, StyleSheet, Image, TouchableOpacity } from "react-native"
 import { FugazOne_400Regular } from "@expo-google-fonts/fugaz-one"
 import { Inter_400Regular, Inter_300Light } from "@expo-google-fonts/inter"
 import { KronaOne_400Regular } from "@expo-google-fonts/krona-one"
 import { useFonts } from "expo-font"
-import testImage from "./test-sunflower.jpg"
-import { Button } from "@react-navigation/elements"
+import { useIndividualPlant } from "../../contexts/individualPlantContext"
+import { router } from "expo-router"
 
 function NoButtonCard({ contents }) {
-    // Handle Fonts
+    const { plant } = useIndividualPlant()
+
     const [fontsLoaded] = useFonts({
         Inter_300Light,
         FugazOne_400Regular,
@@ -24,8 +25,16 @@ function NoButtonCard({ contents }) {
 
     const { title, lineOne, lineTwo, lineThree, imgUrl } = contents
 
+    function handlePress() {
+        plant.id = contents.plantId
+        router.push("/pages/individualPlantPage")
+    }
+
     return (
-        <View style={styles.container}>
+        <TouchableOpacity
+            style={styles.container}
+            onPress={() => handlePress()}
+        >
             <Image style={styles.thumbnail} source={{ uri: imgUrl }} />
             <View style={styles.textContents}>
                 <Text numberOfLines={1} style={styles.titleText}>
@@ -41,7 +50,7 @@ function NoButtonCard({ contents }) {
                     {lineThree}
                 </Text>
             </View>
-        </View>
+        </TouchableOpacity>
     )
 }
 
