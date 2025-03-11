@@ -58,11 +58,9 @@ export default function LoginForm() {
 
   return (
     <View style={styles.container}>
-      <View style={styles.header}>
-        <Image source={poison_ivy} style={styles.headerImg} />
-        <Text style={styles.title}>Sign-in to the Plant Zone!</Text>
-        <Text style={styles.subtitle}>Why stop at a green thumb?</Text>
-      </View>
+      <Image source={poison_ivy} style={styles.headerImg} />
+      {/* <Text style={styles.title}>Log in to the Plant Zone!</Text>
+        <Text style={styles.subtitle}>Why stop at a green thumb?</Text> */}
       <View style={styles.form}>
         <View style={styles.input}>
           <Text style={styles.inputLabel}>Email address</Text>
@@ -101,7 +99,7 @@ export default function LoginForm() {
                 style={styles.button}
                 onPress={() => router.push("../pages/homePage")}
               >
-                <Text style={styles.buttonText}>Sign in</Text>
+                <Text style={styles.text}>Sign in</Text>
               </View>
             </TouchableOpacity>
           </View>
@@ -113,12 +111,12 @@ export default function LoginForm() {
 
 const styles = StyleSheet.create({
   container: {
-    padding: 24,
+    paddingHorizontal: 10,
     flex: 1,
   },
   headerImg: {
-    width: 80,
-    height: 80,
+    width: 120,
+    height: 120,
     alignSelf: "center",
     marginBottom: 36,
   },
@@ -134,6 +132,7 @@ const styles = StyleSheet.create({
     fontWeight: "500",
     color: "#929292",
     textAlign: "center",
+    margin: 15,
   },
   input: {
     marginBottom: 16,
@@ -150,7 +149,7 @@ const styles = StyleSheet.create({
     backgroundColor: "#fff",
     paddingVertical: 10,
     paddingHorizontal: 16,
-    borderRadius: 12,
+    borderRadius: 0,
     fonrtSize: 15,
     fontWeight: "500",
     color: "#222",
@@ -173,18 +172,15 @@ const styles = StyleSheet.create({
   },
   button: {
     backgroundColor: "#8EC255",
-    borderRadius: 8,
-
-    borderColor: "#075eec",
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "center",
-    paddingVertical: 10,
-    paddingHorizontal: 20,
+    margin: 20,
+    padding: 10,
+    width: 220,
+    alignSelf: "center",
   },
-  buttonText: {
-    fontSize: 18,
-    fontWeight: "600",
-    color: "#fff",
+  text: {
+    color: "#ffffff",
+    alignSelf: "center",
+    fontFamily: "FugazOne_400Regular",
+    fontSize: 30,
   },
 });
