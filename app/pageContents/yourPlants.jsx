@@ -11,46 +11,41 @@ import {
   PanResponder,
 } from "react-native";
 import Card from "../components/cards/genericCard";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useRouter } from "expo-router";
 import FontAwesome6 from "@expo/vector-icons/FontAwesome6";
+import {useUser} from "../contexts/userContext"
 
 export default function YourPlants() {
+  const {user} = useUser()
   const router = useRouter();
-  const [zones, setZones] = useState([
-    {
-      //plants property should be an empty array. Fake data for viewing purposes
-      zoneName: "Balcony",
-      plants: [
-        { id: 1, title: "Roses", Sunlight: "Needs Sun", Water: "Once a day" },
-        {
-          id: 2,
-          title: "Cactus",
-          Sunlight: "Plenty of Sun required",
-          Water: "Little bit",
-        },
-      ],
-    },
-    {
-      //plants property should be an empty array. Fake data for viewing purposes
-      zoneName: "Garden",
-      plants: [
-        {
-          id: 3,
-          title: "Tomato",
-          Sunlight: "Plenty of Sun required",
-          Water: "Plenty of water",
-        },
-      ],
-    },
-    {
-      zoneName: "Indoor",
-      plants: [],
-    },
-  ]);
-
+  const [zones, setZones] = useState([{
+    is_outdoor: true,
+    sun_level:"full sun",
+    user_key: 2,
+    zone_id:1,
+    zone_name: "balcony"}]);
   const [newZone, setNewZone] = useState("");
   const [swipedZone, setSwipedZone] = useState(null);
+  const [loading, setLoading] = useState(true)
+
+    useEffect(() => {
+      if (user) {
+        fetchZones();
+      }
+    }, [user]);
+  
+    const fetchZones = async () => {
+      try {
+        const response = await fetch(`https://plant-app-backend-87sk.onrender.com/api/zones/${user.user_id}`);
+        if (!response.ok) throw new Error("Failed to fetch zones");
+        const data = await response.json();
+        console.log(data)
+        setZones(data);
+      } catch (error) {
+        console.error("Error fetching zones:", error);
+      }
+    };
 
   const addZone = () => {
     if (newZone.trim() === "") return;
@@ -80,9 +75,12 @@ export default function YourPlants() {
       },
     });
   };
-
+  if(loading){
+    return "Loading..."
+  }
+else {
   return (
-    <View style={styles.container}>
+    <View style={styles.container} >
       <TouchableWithoutFeedback
         onPress={() => {
           Keyboard.dismiss();
@@ -97,7 +95,7 @@ export default function YourPlants() {
             <View style={styles.section} key={zoneName}>
               <View
                 style={styles.sectionHeader}
-                {...panResponder(zoneName).panHandlers}
+                {...panResponder(zoneName).panHandlers }
               >
                 <View style={styles.headerRow}>
                   <Text style={styles.textSectionHeader}>{zoneName}</Text>
@@ -110,19 +108,20 @@ export default function YourPlants() {
                       <FontAwesome6 name="trash-can" size={26} color="red" />
                     </TouchableOpacity>
                   )}
+                  
                 </View>
               </View>
 
-              <View style={styles.sectionBody}>
+              {/* <View style={styles.sectionBody}>
                 {plants.length > 0 ? (
                   plants.map((plant) => (
                     <View style={styles.cardContainer} key={plant.id}>
                       <Card contents={plant} />
-                    </View>
-                  ))
+                    </View> */}
+                  {/* ))
                 ) : (
                   <Text style={styles.noPlantsText}>No plants added</Text>
-                )}
+                )} */}
 
                 <TouchableOpacity
                   style={styles.newPlantButton}
@@ -131,7 +130,8 @@ export default function YourPlants() {
                   <Text style={styles.textButton}>+ Find New Plant</Text>
                 </TouchableOpacity>
               </View>
-            </View>
+            // </View>
+        
           ))}
 
           <View style={styles.addZoneContainer}>
@@ -150,6 +150,8 @@ export default function YourPlants() {
     </View>
   );
 }
+  }
+
 
 const styles = StyleSheet.create({
   container: {
