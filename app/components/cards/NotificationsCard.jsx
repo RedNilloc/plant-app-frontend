@@ -12,21 +12,21 @@ export default function NotificationsCard({ plant }) {
     KronaOne_400Regular,
   });
 
-  const needsWater = plant.daysSinceWatered > 7;
+  const needsWater = plant.daysSinceWatered > plant.wateringThreshold
 
   return (
     <SafeAreaView style={styles.container}>
-      <View style={styles.textContents}>
+      <View style={styles.textContents}>  
         <Text style={styles.titleText}>Important!</Text>
         <Text style={styles.lineOne}>
           {needsWater
-            ? `Oh no! You haven't watered your ${plant.common_name} since ${plant.last_watered}!`
-            : `${plant.common_name} is all good!`}
+            ? `Oh no! You haven't watered your ${plant.common_name} since ${plant.last_watered}! ${plant.common_name} needs water badly!`
+            : `${plant.common_name} is all good for now!`}
         </Text>
       </View>
       <Button style={styles.button}></Button>
     </SafeAreaView>
-  );
+  );  
 }
 
 const styles = StyleSheet.create({
