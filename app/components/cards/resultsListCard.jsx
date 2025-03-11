@@ -20,18 +20,18 @@ import { useIndividualPlant } from "../../contexts/individualPlantContext"
 const TEST_USER_ID = 2
 
 function capitaliseFirstLetter(text) {
-    if (text) {
-        return text.charAt(0).toUpperCase() + text.slice(1)
-    }
+  if (text) {
+    return text.charAt(0).toUpperCase() + text.slice(1);
+  }
 }
 
 function ResultsListCard({ contents, zones }) {
     const { plant } = useIndividualPlant()
 
-    const [modalVisible, setModalVisible] = useState(false)
-    const [liked, setLiked] = useState(false)
 
-    console.log("zones --> ", zones)
+  const [modalVisible, setModalVisible] = useState(false);
+  const [liked, setLiked] = useState(false);
+
 
     const [fontsLoaded] = useFonts({
         Inter_300Light,
@@ -39,21 +39,21 @@ function ResultsListCard({ contents, zones }) {
         KronaOne_400Regular,
     })
 
-    function handlePress() {
-        plant.id = contents.plant_id
-        router.push("/pages/individualPlantPage")
-    }
+  function handlePress() {
+    plant.id = contents.plant_id;
+    router.push("/pages/individualPlantPage");
+  }
 
-    function favouriteFunc() {
-        setLiked(!liked)
-        console.log("there will be a proper function i promise")
-    }
+  function favouriteFunc() {
+    setLiked(!liked);
+    console.log("there will be a proper function i promise");
+  }
 
-    function addFunc() {
-        setModalVisible(true)
-        console.log("there will be a function i promise")
-    }
-    const { default_image, common_name, watering, price } = contents
+  function addFunc() {
+    setModalVisible(true);
+    console.log("there will be a function i promise");
+  }
+  const { default_image, common_name, watering, price } = contents;
 
     if (contents.watering) {
         return (
@@ -112,67 +112,67 @@ function ResultsListCard({ contents, zones }) {
     }
 }
 
-export default ResultsListCard
+export default ResultsListCard;
 
 const styles = StyleSheet.create({
-    container: {
-        display: "flex",
-        flexDirection: "row",
-        backgroundColor: "#E8F3DD",
-        width: "90%",
-        marginBottom: "3%",
-    },
-    textContents: {
-        flex: 2,
-        flexDirection: "column",
-        height: "100%",
-        paddingTop: "2%",
-        paddingBottom: "1%",
-        paddingLeft: "2%",
-    },
-    titleText: {
-        fontFamily: "KronaOne_400Regular",
-        fontSize: 16,
-        marginBottom: 5,
-    },
-    sorry: {
-        fontFamily: "KronaOne_400Regular",
-        fontSize: 26,
-        margin: 18,
-        textAlign: "center",
-    },
-    lineOne: {
-        fontFamily: "Inter_300Light",
-        fontSize: 15,
-        marginBottom: 10,
-    },
-    lineTwo: {
-        fontFamily: "Inter_300Light",
-        fontStyle: "italic",
-        fontSize: 16,
-    },
-    lineThree: {
-        fontFamily: "Inter_300Light",
-        fontSize: 16,
-    },
-    thumbnail: {
-        flex: 1,
-        maxWidth: "25%",
-        minWidth: "25%",
-        height: "100%",
-    },
-    favButton: {
-        borderRadius: 0,
-        flex: 3,
-        maxWidth: "100%",
-        height: 50,
-        backgroundColor: "yellow",
-    },
-    addButton: {
-        borderRadius: 0,
-        flex: 3,
-        maxWidth: "100%",
-        height: 50,
-        backgroundColor: "#8EC255",
-    },
-})
+  container: {
+    display: "flex",
+    flexDirection: "row",
+    backgroundColor: "#E8F3DD",
+    width: "90%",
+    marginBottom: "3%",
+  },
+  textContents: {
+    flex: 2,
+    flexDirection: "column",
+    height: "100%",
+    paddingTop: "2%",
+    paddingBottom: "1%",
+    paddingLeft: "2%",
+  },
+  titleText: {
+    fontFamily: "KronaOne_400Regular",
+    fontSize: 16,
+    marginBottom: 5,
+  },
+  sorry: {
+    fontFamily: "KronaOne_400Regular",
+    fontSize: 26,
+    margin: 18,
+    textAlign: "center",
+  },
+  lineOne: {
+    fontFamily: "Inter_300Light",
+    fontSize: 15,
+    marginBottom: 10,
+  },
+  lineTwo: {
+    fontFamily: "Inter_300Light",
+    fontStyle: "italic",
+    fontSize: 16,
+  },
+  lineThree: {
+    fontFamily: "Inter_300Light",
+    fontSize: 16,
+  },
+  thumbnail: {
+    flex: 1,
+    maxWidth: "25%",
+    minWidth: "25%",
+    height: "100%",
+  },
+  favButton: {
+    borderRadius: 0,
+    flex: 3,
+    maxWidth: "100%",
+    height: 50,
+    backgroundColor: "yellow",
+  },
+  addButton: {
+    borderRadius: 0,
+    flex: 3,
+    maxWidth: "100%",
+    height: 50,
+    backgroundColor: "#8EC255",
+  },
+});
