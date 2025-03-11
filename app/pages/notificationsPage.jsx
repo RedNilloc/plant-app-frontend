@@ -12,6 +12,12 @@ export default function NotificationsPage() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
+  const wateringThreshold = {
+    minimal: 10,
+    average: 7,
+    frequent: 4
+  };
+
   useEffect(() => {
     axios
       .get(`https://plant-app-backend-87sk.onrender.com/api/users/${testUserId}/owned_plants`)
@@ -20,14 +26,17 @@ export default function NotificationsPage() {
 
         
         const plantsWithWateringInfo = response.data.plants.map((plant) => {
-          const lastWateredDate = plant.last_watered ? new Date(plant.last_watered) : new Date("2025-02-01");
+          const lastWateredDate = plant.last_watered ? new Date(plant.last_watered) : new Date("2025-03-06");
           const timeDifference = currentDay.getTime() - lastWateredDate.getTime();
           const dayDifference = timeDifference / (1000 * 3600 * 24);
-
+          
+const threshold = wateringThreshold[plant.watering]
           return {
             ...plant,
-            last_watered: plant.last_watered || "2025-02-01",
+            last_watered: plant.last_watered || "2025-03-10",
             daysSinceWatered: Math.floor(dayDifference), 
+            wateringThreshold: threshold
+            
           };
         });
 
@@ -36,7 +45,7 @@ export default function NotificationsPage() {
       })
       .catch((error) => {
         setLoading(false);
-        setError("Failed to load plants");
+        setError("Failed to load your plants :(");
       });
   }, []);
 
