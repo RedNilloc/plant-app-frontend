@@ -52,45 +52,58 @@ function ResultsListCard({ contents, imgURL }) {
     }
     const { default_image, common_name, watering, price } = contents
 
-    return (
-        <TouchableOpacity
-            style={styles.container}
-            onPress={() => handlePress()}
-        >
-            <SearchResultsModal
-                modalVisible={modalVisible}
-                setModalVisible={setModalVisible}
-            ></SearchResultsModal>
-            <Image style={styles.thumbnail} source={{ uri: default_image }} />
+    if (contents.watering) {
+        return (
+            <TouchableOpacity
+                style={styles.container}
+                onPress={() => handlePress()}
+            >
+                <SearchResultsModal
+                    modalVisible={modalVisible}
+                    setModalVisible={setModalVisible}
+                ></SearchResultsModal>
+                <Image
+                    style={styles.thumbnail}
+                    source={{ uri: default_image }}
+                />
+                <View style={styles.textContents}>
+                    <Text style={styles.titleText}>
+                        {capitaliseFirstLetter(common_name)}
+                    </Text>
+                    <Text style={styles.lineOne}>
+                        Watering frequency: {watering}
+                    </Text>
+                    <Text style={styles.lineThree}>Price: {price}</Text>
+                </View>
+                <View>
+                    <Button
+                        buttonStyle={styles.favButton}
+                        title=""
+                        icon={
+                            liked
+                                ? { name: "star", type: "font-awesome" }
+                                : { name: "star-o", type: "font-awesome" }
+                        }
+                        onPress={() => favouriteFunc()}
+                    />
+                    <Button
+                        buttonStyle={styles.addButton}
+                        title=""
+                        icon={{ name: "plus", type: "font-awesome" }}
+                        onPress={() => addFunc()}
+                    />
+                </View>
+            </TouchableOpacity>
+        )
+    } else {
+        return (
             <View style={styles.textContents}>
-                <Text style={styles.titleText}>
-                    {capitaliseFirstLetter(common_name)}
+                <Text style={styles.sorry}>
+                    Sorry, no plants match your filters
                 </Text>
-                <Text style={styles.lineOne}>
-                    Watering frequency: {watering}
-                </Text>
-                <Text style={styles.lineThree}>Price: {price}</Text>
             </View>
-            <View>
-                <Button
-                    buttonStyle={styles.favButton}
-                    title=""
-                    icon={
-                        liked
-                            ? { name: "star", type: "font-awesome" }
-                            : { name: "star-o", type: "font-awesome" }
-                    }
-                    onPress={() => favouriteFunc()}
-                />
-                <Button
-                    buttonStyle={styles.addButton}
-                    title=""
-                    icon={{ name: "plus", type: "font-awesome" }}
-                    onPress={() => addFunc()}
-                />
-            </View>
-        </TouchableOpacity>
-    )
+        )
+    }
 }
 
 export default ResultsListCard
@@ -115,6 +128,12 @@ const styles = StyleSheet.create({
         fontFamily: "KronaOne_400Regular",
         fontSize: 16,
         marginBottom: 5,
+    },
+    sorry: {
+        fontFamily: "KronaOne_400Regular",
+        fontSize: 26,
+        margin: 18,
+        textAlign: "center",
     },
     lineOne: {
         fontFamily: "Inter_300Light",
