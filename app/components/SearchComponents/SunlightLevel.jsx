@@ -7,10 +7,9 @@ export default function SunlightLevel() {
   const [open, setOpen] = useState(false);
   const [value, setValue] = useState(null);
   const [items, setItems] = useState([
-    { label: "Full shade", value: "full shade" },
+    { label: "Full shade", value: "deep shade" },
     { label: "Full sun", value: "full sun" },
-    { label: "Filtered shade", value: "filtered shade" },
-    { label: "Part sun/part shade", value: "part sun/part shade" },
+    { label: "Part shade", value: "part shade" },
   ]);
   const { params } = useSearch();
   return (
