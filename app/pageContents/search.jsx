@@ -19,7 +19,15 @@ export default function Search() {
   const { params } = useSearch();
   useEffect(() => {
     delete params.sunlight;
+    delete params.common_name;
+    delete params.tropical;
+    delete params.maintenance;
+    delete params.poisonous_to_pets;
+    delete params.poisonous_to_humans;
+    delete params.edible;
+    delete params.flowers;
   }, []);
+
   return (
     <View style={styles.container}>
       <NameSearch></NameSearch>

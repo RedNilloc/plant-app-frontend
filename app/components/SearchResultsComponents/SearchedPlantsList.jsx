@@ -104,16 +104,6 @@ export default function SearchedPlantsList() {
 
   return (
     <View style={styles.container}>
-      {/* <Text>
-                Current params: name: {params.common_name}, indoor:
-                {params.tropical}, maintenance:
-                {params.maintenance},sunlight: {params.sunlight},
-                poisonous_to_pets:
-                {params.poisonous_to_pets}, poisonous_to_humans:
-                {params.poisonous_to_humans}, edible: {params.edible}, flowers:
-                {params.flowers}
-            </Text> */}
-
       {loading === true ? (
         <Text>Loading</Text>
       ) : (
@@ -133,3 +123,15 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
 });
+
+{
+  /* <Text>
+                Current params: name: {params.common_name}, indoor:
+                {params.tropical}, maintenance:
+                {params.maintenance},sunlight: {params.sunlight},
+                poisonous_to_pets:
+                {params.poisonous_to_pets}, poisonous_to_humans:
+                {params.poisonous_to_humans}, edible: {params.edible}, flowers:
+                {params.flowers}
+            </Text> */
+}

@@ -1,5 +1,6 @@
 import { View, SafeAreaView, ScrollView, StyleSheet, Text } from "react-native";
 import PZHeader from "../components/header";
+import PZFooter from "../components/footer";
 import PZFooterSearch from "../components/footerSearchRes";
 import SearchedPlantsList from "../components/SearchResultsComponents/SearchedPlantsList";
 
@@ -14,7 +15,7 @@ export default function searchPage() {
           </View>
         </ScrollView>
       </SafeAreaView>
-      <PZFooterSearch backAddress={"/pages/searchPage"} />
+      <PZFooter backAddress={"/pages/searchPage"} />
     </View>
   );
 }
