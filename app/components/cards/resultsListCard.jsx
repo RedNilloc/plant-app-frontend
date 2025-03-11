@@ -1,22 +1,23 @@
 import {
-  Text,
-  View,
-  StyleSheet,
-  Image,
-  Modal,
-  Pressable,
-  TouchableOpacity,
-} from "react-native";
-import { FugazOne_400Regular } from "@expo-google-fonts/fugaz-one";
-import { Inter_300Light } from "@expo-google-fonts/inter";
-import { KronaOne_400Regular } from "@expo-google-fonts/krona-one";
-import { useFonts } from "expo-font";
-import testImage from "./test-sunflower.jpg";
-import { Button } from "react-native-elements";
-import { useState } from "react";
-import SearchResultsModal from "./cardComponents/SearchResultsModal";
-import { router } from "expo-router";
-import { useIndividualPlant } from "../../contexts/individualPlantContext";
+    Text,
+    View,
+    StyleSheet,
+    Image,
+    Modal,
+    Pressable,
+    TouchableOpacity,
+} from "react-native"
+import { FugazOne_400Regular } from "@expo-google-fonts/fugaz-one"
+import { Inter_300Light } from "@expo-google-fonts/inter"
+import { KronaOne_400Regular } from "@expo-google-fonts/krona-one"
+import { useFonts } from "expo-font"
+import { Button } from "react-native-elements"
+import { useState } from "react"
+import SearchResultsModal from "./cardComponents/SearchResultsModal"
+import { router } from "expo-router"
+import { useIndividualPlant } from "../../contexts/individualPlantContext"
+
+const TEST_USER_ID = 2
 
 function capitaliseFirstLetter(text) {
   if (text) {
@@ -24,17 +25,19 @@ function capitaliseFirstLetter(text) {
   }
 }
 
-function ResultsListCard({ contents, imgURL }) {
-  const { plant } = useIndividualPlant();
+function ResultsListCard({ contents, zones }) {
+    const { plant } = useIndividualPlant()
+
 
   const [modalVisible, setModalVisible] = useState(false);
   const [liked, setLiked] = useState(false);
 
-  const [fontsLoaded] = useFonts({
-    Inter_300Light,
-    FugazOne_400Regular,
-    KronaOne_400Regular,
-  });
+
+    const [fontsLoaded] = useFonts({
+        Inter_300Light,
+        FugazOne_400Regular,
+        KronaOne_400Regular,
+    })
 
   function handlePress() {
     plant.id = contents.plant_id;
@@ -52,48 +55,61 @@ function ResultsListCard({ contents, imgURL }) {
   }
   const { default_image, common_name, watering, price } = contents;
 
-  if (contents.watering) {
-    return (
-      <TouchableOpacity style={styles.container} onPress={() => handlePress()}>
-        <SearchResultsModal
-          modalVisible={modalVisible}
-          setModalVisible={setModalVisible}
-        ></SearchResultsModal>
-        <Image style={styles.thumbnail} source={{ uri: default_image }} />
-        <View style={styles.textContents}>
-          <Text style={styles.titleText}>
-            {capitaliseFirstLetter(common_name)}
-          </Text>
-          <Text style={styles.lineOne}>Watering frequency: {watering}</Text>
-          {price ? <Text style={styles.lineThree}>Price: {price}</Text> : ""}
-        </View>
-        <View>
-          <Button
-            buttonStyle={styles.favButton}
-            title=""
-            icon={
-              liked
-                ? { name: "star", type: "font-awesome" }
-                : { name: "star-o", type: "font-awesome" }
-            }
-            onPress={() => favouriteFunc()}
-          />
-          <Button
-            buttonStyle={styles.addButton}
-            title=""
-            icon={{ name: "plus", type: "font-awesome" }}
-            onPress={() => addFunc()}
-          />
-        </View>
-      </TouchableOpacity>
-    );
-  } else {
-    return (
-      <View style={styles.textContents}>
-        <Text style={styles.sorry}>Sorry, no plants match your filters</Text>
-      </View>
-    );
-  }
+    if (contents.watering) {
+        return (
+            <TouchableOpacity
+                style={styles.container}
+                onPress={() => handlePress()}
+            >
+                <SearchResultsModal
+                    modalVisible={modalVisible}
+                    setModalVisible={setModalVisible}
+                    userId={TEST_USER_ID}
+                    plantId={contents.plant_id}
+                    zones={zones}
+                ></SearchResultsModal>
+                <Image
+                    style={styles.thumbnail}
+                    source={{ uri: default_image }}
+                />
+                <View style={styles.textContents}>
+                    <Text style={styles.titleText}>
+                        {capitaliseFirstLetter(common_name)}
+                    </Text>
+                    <Text style={styles.lineOne}>
+                        Watering frequency: {watering}
+                    </Text>
+                    <Text style={styles.lineThree}>Price: {price}</Text>
+                </View>
+                <View>
+                    <Button
+                        buttonStyle={styles.favButton}
+                        title=""
+                        icon={
+                            liked
+                                ? { name: "star", type: "font-awesome" }
+                                : { name: "star-o", type: "font-awesome" }
+                        }
+                        onPress={() => favouriteFunc()}
+                    />
+                    <Button
+                        buttonStyle={styles.addButton}
+                        title=""
+                        icon={{ name: "plus", type: "font-awesome" }}
+                        onPress={() => addFunc()}
+                    />
+                </View>
+            </TouchableOpacity>
+        )
+    } else {
+        return (
+            <View style={styles.textContents}>
+                <Text style={styles.sorry}>
+                    Sorry, no plants match your filters
+                </Text>
+            </View>
+        )
+    }
 }
 
 export default ResultsListCard;
