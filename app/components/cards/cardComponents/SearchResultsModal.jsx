@@ -18,10 +18,6 @@ export default function SearchResultsModal({
 
     const [locations, setlocations] = useState(zones)
 
-    console.log("zones ---> ", zones)
-
-    //TODO LIST:
-
     function addFav() {
         setAdded(`Plant added to your ${locationChoice}!`)
     }

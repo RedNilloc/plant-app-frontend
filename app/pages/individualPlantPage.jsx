@@ -14,7 +14,7 @@ import IndividualPlant from "../pageContents/individualPlant"
 import { useIndividualPlant } from "../contexts/individualPlantContext"
 
 const TESTING_PLANT_ID = 1195
-const TESTING_USER_ID = 3
+const TESTING_USER_ID = 2
 
 export default function IndividualPlantPage() {
     const { plant } = useIndividualPlant()
