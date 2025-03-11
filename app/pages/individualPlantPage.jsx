@@ -18,7 +18,7 @@ const TESTING_USER_ID = 3
 
 export default function IndividualPlantPage() {
     const { plant } = useIndividualPlant()
-    console.log(plant.id)
+
     return (
         <View style={{ height: "100%", backgroundColor: "#ffffff" }}>
             <SafeAreaView style={styles.sav}>
