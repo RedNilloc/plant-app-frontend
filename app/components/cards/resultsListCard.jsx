@@ -51,7 +51,6 @@ function ResultsListCard({ contents, imgURL }) {
         console.log("there will be a function i promise")
     }
     const { default_image, common_name, watering, price } = contents
-    console.log(default_image)
 
     return (
         <TouchableOpacity
