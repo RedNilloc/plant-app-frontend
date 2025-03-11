@@ -37,7 +37,6 @@ function ResultsListCard({ contents, imgURL }) {
     })
 
     function handlePress() {
-        console.log(contents)
         plant.id = contents.plant_id
         router.push("/pages/individualPlantPage")
     }
