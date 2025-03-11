@@ -7,14 +7,14 @@ import Login from "../pageContents/login";
 export default function LoginPage() {
   return (
     <View style={{ height: "100%", backgroundColor: "#ffffff" }}>
-      <SafeAreaView style={styles.sav}>
-        <ScrollView bounces={false}>
-          <PZHeader>Log in</PZHeader>
-          <View style={styles.pageContent}>
-            <Login></Login>
-          </View>
-        </ScrollView>
-      </SafeAreaView>
+      {/* <SafeAreaView style={styles.sav}> */}
+      <ScrollView bounces={false}>
+        <PZHeader>Log in</PZHeader>
+        <View style={styles.pageContent}>
+          <Login></Login>
+        </View>
+      </ScrollView>
+      {/* </SafeAreaView> */}
       <PZFooter />
     </View>
   );

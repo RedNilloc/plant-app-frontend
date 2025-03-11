@@ -7,10 +7,11 @@ import {
   TouchableOpacity,
   Alert,
 } from "react-native";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import poison_ivy from "../../assets/images/poison-ivy.png.png";
 import { useRouter } from "expo-router";
 import axios from "axios";
+import { useUser } from "../contexts/userContext";
 
 export default function LoginForm() {
   const router = useRouter();
@@ -18,12 +19,41 @@ export default function LoginForm() {
     email: "",
     password: "",
   });
+  const { user, setUser } = useUser();
+
+  const [usersList, setUsersList] = useState([]);
+
+  useEffect(() => {
+    axios
+      .get("https://plant-app-backend-87sk.onrender.com/api/users")
+      .then((response) => {
+        setUsersList(response.data.users);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }, []);
 
   function handleLogin() {
     if (!form) {
       Alert.alert("ERROR!", "Please enter details");
       return;
     }
+    usersList.forEach((eachUser) => {
+      if (form.email === eachUser.email) {
+        user.user_id = eachUser.user_id;
+        user.username = eachUser.username;
+        user.email = eachUser.email;
+        user.geolocation = eachUser.geolocation;
+        //VERSION WITH STATE THAT I COULDN'T GET WORKING
+        // setUser({
+        //   user_id: eachUser.user_id,
+        //   username: eachUser.username,
+        //   email: eachUser.email,
+        //   geolocation: eachUser.geolocation,
+        // });
+      }
+    });
   }
 
   return (
@@ -62,7 +92,7 @@ export default function LoginForm() {
           <View style={styles.formAction}>
             <TouchableOpacity
               onPress={() => {
-                // handle onPress
+                handleLogin();
                 Alert.alert("Successfully logged in!");
                 router.push("../pages/homePage");
               }}
@@ -107,6 +137,7 @@ const styles = StyleSheet.create({
   },
   input: {
     marginBottom: 16,
+    borderRadius: 0,
   },
   inputLabel: {
     fontSize: 17,
