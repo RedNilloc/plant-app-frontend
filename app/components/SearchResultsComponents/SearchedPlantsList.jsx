@@ -35,6 +35,7 @@ export default function SearchedPlantsList() {
             })
     }
 
+
     useEffect(() => {
         getZonesList()
     }, [])
@@ -131,7 +132,7 @@ export default function SearchedPlantsList() {
     return (
         <View style={styles.container}>
             {loading === true ? (
-                <Text>Loading</Text>
+                <Text style={styles.loading}>Plants are loading... 🌱 </Text>
             ) : (
                 (console.log(plantsList.length),
                 plantsList.map((plant, index) => (
@@ -147,12 +148,17 @@ export default function SearchedPlantsList() {
 }
 
 const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        backgroundColor: "#ffffff",
-        alignItems: "center",
-    },
-})
+  container: {
+    flex: 1,
+    backgroundColor: "#ffffff",
+    alignItems: "center",
+  },
+  loading: {
+    fontSize: 20,
+    marginTop: 20,
+  },
+});
+
 
 {
     /* <Text>
