@@ -15,7 +15,6 @@ export default function SearchedPlantsList() {
   ]);
 
   useEffect(() => {
-    console.log(params.edible);
     let queryString = "https://plant-app-backend-87sk.onrender.com/api/plants?";
     let count = 0;
     if (params.common_name) {
@@ -98,7 +97,6 @@ export default function SearchedPlantsList() {
           },
         ]);
         setLoading(false);
-        setError("Failed to load plant");
       });
   }, []);
 
