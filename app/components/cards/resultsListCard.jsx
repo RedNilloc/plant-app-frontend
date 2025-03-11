@@ -11,12 +11,13 @@ import { FugazOne_400Regular } from "@expo-google-fonts/fugaz-one"
 import { Inter_300Light } from "@expo-google-fonts/inter"
 import { KronaOne_400Regular } from "@expo-google-fonts/krona-one"
 import { useFonts } from "expo-font"
-import testImage from "./test-sunflower.jpg"
 import { Button } from "react-native-elements"
 import { useState } from "react"
 import SearchResultsModal from "./cardComponents/SearchResultsModal"
 import { router } from "expo-router"
 import { useIndividualPlant } from "../../contexts/individualPlantContext"
+
+const TEST_USER_ID = 2
 
 function capitaliseFirstLetter(text) {
     if (text) {
@@ -24,11 +25,13 @@ function capitaliseFirstLetter(text) {
     }
 }
 
-function ResultsListCard({ contents, imgURL }) {
+function ResultsListCard({ contents, zones }) {
     const { plant } = useIndividualPlant()
 
     const [modalVisible, setModalVisible] = useState(false)
     const [liked, setLiked] = useState(false)
+
+    console.log("zones --> ", zones)
 
     const [fontsLoaded] = useFonts({
         Inter_300Light,
@@ -61,6 +64,9 @@ function ResultsListCard({ contents, imgURL }) {
                 <SearchResultsModal
                     modalVisible={modalVisible}
                     setModalVisible={setModalVisible}
+                    userId={TEST_USER_ID}
+                    plantId={contents.plant_id}
+                    zones={zones}
                 ></SearchResultsModal>
                 <Image
                     style={styles.thumbnail}
