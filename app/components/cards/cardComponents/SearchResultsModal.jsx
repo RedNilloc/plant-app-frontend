@@ -18,8 +18,30 @@ export default function SearchResultsModal({
 
     const [locations, setlocations] = useState(zones)
 
-    function addFav() {
-        setAdded(`Plant added to your ${locationChoice}!`)
+    function addPlant() {
+        if (locationChoice) {
+            setAdded(`Adding...`)
+
+            let zoneId
+            console.log(locationChoice)
+
+            zones.forEach((zone) => {
+                if (zone.value === locationChoice) {
+                    console.log(zone)
+                    zoneId = zone.id
+                    console.log(zoneId)
+                }
+            })
+
+            console.log({ user: userId, plant: plantId, zone: zoneId })
+
+            axios
+                .post(
+                    `https://plant-app-backend-87sk.onrender.com/api/users/${userId}/owned_plants`,
+                    { user: userId, plant: plantId, zone: zoneId }
+                )
+                .then(() => setAdded(`Plant added to your ${locationChoice}!`))
+        }
     }
 
     return (
@@ -74,7 +96,7 @@ export default function SearchResultsModal({
                     <Pressable
                         style={[styles.buttonYes]}
                         onPress={() => {
-                            addFav()
+                            addPlant()
                         }}
                     >
                         <Text style={styles.textStyle}>Yes</Text>

@@ -19,7 +19,11 @@ export default function IndividualPlantsButtons({ userId, plantId }) {
             .then((res) => {
                 setZonesList(
                     res.data.zones.map((zone) => {
-                        return { label: zone.zone_name, value: zone.zone_name }
+                        return {
+                            label: zone.zone_name,
+                            value: zone.zone_name,
+                            id: zone.zone_id,
+                        }
                     })
                 )
                 setLoading(false)
@@ -119,6 +123,8 @@ export default function IndividualPlantsButtons({ userId, plantId }) {
                     modalVisible={modalVisible}
                     setModalVisible={setModalVisible}
                     zones={zonesList}
+                    plantId={plantId}
+                    userId={userId}
                 ></SearchResultsModal>
                 <TouchableOpacity style={styles.button} onPress={addToPlants}>
                     <Text style={styles.buttonText}>Add to Plants</Text>

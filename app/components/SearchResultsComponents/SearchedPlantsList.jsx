@@ -23,14 +23,13 @@ export default function SearchedPlantsList() {
                 `https://plant-app-backend-87sk.onrender.com/api/zones/${TEST_USER_ID}`
             )
             .then((res) => {
-                console.log(res.data)
                 setZonesList(
                     res.data.zones.map((zone) => {
-                        console.log({
+                        return {
                             label: zone.zone_name,
                             value: zone.zone_name,
-                        })
-                        return { label: zone.zone_name, value: zone.zone_name }
+                            id: zone.zone_id,
+                        }
                     })
                 )
             })
