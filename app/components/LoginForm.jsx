@@ -35,10 +35,11 @@ export default function LoginForm() {
   }, []);
 
   function handleLogin() {
-    if (!form) {
-      Alert.alert("ERROR!", "Please enter details");
+    if (form.email.length < 10 || form.password.length < 3) {
+      Alert.alert("ERROR!", "Please enter valid details");
       return;
     }
+
     usersList.forEach((eachUser) => {
       if (form.email === eachUser.email) {
         user.user_id = eachUser.user_id;
@@ -54,6 +55,9 @@ export default function LoginForm() {
         // });
       }
     });
+
+    Alert.alert("Successfully logged in!");
+    router.push("../pages/homePage");
   }
 
   return (
@@ -91,8 +95,6 @@ export default function LoginForm() {
             <TouchableOpacity
               onPress={() => {
                 handleLogin();
-                Alert.alert("Successfully logged in!");
-                router.push("../pages/homePage");
               }}
             >
               <View
