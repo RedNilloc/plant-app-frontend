@@ -13,9 +13,9 @@ export default function NotificationsPage() {
   const [error, setError] = useState(null);
 
   const wateringThreshold = {
-    minimal: 10,
-    average: 7,
-    frequent: 4
+    Minimum: 10,
+    Average: 7,
+    Frequent: 4
   };
 
   useEffect(() => {
@@ -26,11 +26,12 @@ export default function NotificationsPage() {
 
         
         const plantsWithWateringInfo = response.data.plants.map((plant) => {
-          const lastWateredDate = plant.last_watered ? new Date(plant.last_watered) : new Date("2025-03-06");
+          const lastWateredDate = plant.last_watered ? new Date(plant.last_watered) : new Date("2025-03-03");
           const timeDifference = currentDay.getTime() - lastWateredDate.getTime();
           const dayDifference = timeDifference / (1000 * 3600 * 24);
           
 const threshold = wateringThreshold[plant.watering]
+console.log(threshold)
           return {
             ...plant,
             last_watered: plant.last_watered || "2025-03-10",
