@@ -23,7 +23,6 @@ export default function NotificationsPage() {
       .get(`https://plant-app-backend-87sk.onrender.com/api/users/${testUserId}/owned_plants`)
       .then((response) => {
         const currentDay = new Date();
-
         
         const plantsWithWateringInfo = response.data.plants.map((plant) => {
           const lastWateredDate = plant.last_watered ? new Date(plant.last_watered) : new Date("2025-03-03");
@@ -31,7 +30,7 @@ export default function NotificationsPage() {
           const dayDifference = timeDifference / (1000 * 3600 * 24);
           
 const threshold = wateringThreshold[plant.watering]
-console.log(threshold)
+
           return {
             ...plant,
             last_watered: plant.last_watered || "2025-03-10",
