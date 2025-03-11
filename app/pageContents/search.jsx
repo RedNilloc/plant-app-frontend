@@ -8,12 +8,25 @@ import LocationInput from "../components/SearchComponents/LocationSearch";
 import { useRouter } from "expo-router";
 import { useFonts } from "expo-font";
 import { FugazOne_400Regular } from "@expo-google-fonts/fugaz-one";
+import { useEffect } from "react";
+import { useSearch } from "../contexts/searchContext";
 
 export default function Search() {
   const router = useRouter();
   const [fontsLoaded] = useFonts({
     FugazOne_400Regular,
   });
+  const { params } = useSearch();
+  useEffect(() => {
+    delete params.sunlight;
+    delete params.common_name;
+    delete params.tropical;
+    delete params.maintenance;
+    delete params.poisonous_to_pets;
+    delete params.poisonous_to_humans;
+    delete params.edible;
+    delete params.flowers;
+  }, []);
 
   return (
     <View style={styles.container}>
