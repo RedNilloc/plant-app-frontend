@@ -103,7 +103,7 @@ export default function SearchedPlantsList() {
   return (
     <View style={styles.container}>
       {loading === true ? (
-        <Text>Loading</Text>
+        <Text style={styles.loading}>Plants are loading... 🌱 </Text>
       ) : (
         (console.log(plantsList.length),
         plantsList.map((plant, index) => (
@@ -119,6 +119,10 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: "#ffffff",
     alignItems: "center",
+  },
+  loading: {
+    fontSize: 20,
+    marginTop: 20,
   },
 });
 
