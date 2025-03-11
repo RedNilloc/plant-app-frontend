@@ -33,14 +33,3 @@ const styles = StyleSheet.create({
     paddingBottom: "20%",
   },
 });
-
-// we need to get the user's plants
-// we need to get plant by id to check its watering value
-// we need to check the last-watered date value
-// we need to compare that value to the current date
-// if the time difference exceeds the time that plant should be watered, the user is sent a notification
-// if, through getting the weather api, there has been rain in the user's location during this period,
-// the "last watered" date is set to the date of the rain
-// we need an array of the plants for whom a notification is warranted
-// these are the ones which are send onto the card
-// the card should probably only show a single plant at a time, do we need a component for userplants?
