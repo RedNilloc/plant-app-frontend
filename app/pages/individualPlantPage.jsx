@@ -16,7 +16,7 @@ import { useUser } from "../contexts/userContext"
 
 export default function IndividualPlantPage() {
     const { plant } = useIndividualPlant()
-    const { user } = useUser
+    const { user } = useUser()
 
     return (
         <View style={{ height: "100%", backgroundColor: "#ffffff" }}>
