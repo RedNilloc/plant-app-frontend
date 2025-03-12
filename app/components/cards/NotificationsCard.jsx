@@ -13,15 +13,17 @@ export default function NotificationsCard({ plant }) {
   });
 
   const needsWater = plant.daysSinceWatered > plant.wateringThreshold
+  // console.log(plant.daysSinceWatered, "pllLLLLLLEEEEEEEAAAASSSE")
 
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.textContents}>  
         <Text style={styles.titleText}>Important!</Text>
         <Text style={styles.lineOne}>
+          <Text>{console.log(plant.daysSinceWatered, "EEEEEEEEE")}</Text>
           {needsWater
             ? `Oh no! You haven't watered your ${plant.common_name} since ${plant.last_watered}! ${plant.common_name} needs water badly!`
-            : `${plant.common_name} is all good for now!`}
+            : `Your ${plant.common_name} is all good for now!`}
         </Text>
       </View>
     </SafeAreaView>

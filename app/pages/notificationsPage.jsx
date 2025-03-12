@@ -29,13 +29,16 @@ export default function NotificationsPage() {
         `https://plant-app-backend-87sk.onrender.com/api/users/${testUserId}/owned_plants`
       )
       .then((response) => {
+        console.log(response.data, "This is the response data");
         const plantsWithWateringInfo = response.data.plants.map((plant) => {
-          const lastWateredDate = plant.last_watered
-            ? new Date(plant.last_watered)
-            : new Date("2025-03-03");
-          const timeDifference =
-            new Date().getTime() - lastWateredDate.getTime();
+          const lastWateredDate = new Date(plant.last_watered);
+          console.log(lastWateredDate, "This is the lastWateredDate");
+          // ? lastWateredDate
+          // : new Date("2025-03-03");
+          const timeDifference = new Date().getTime() - lastWateredDate.getTime();
+          console.log(timeDifference, "This is the timeDifference");
           const dayDifference = timeDifference / (1000 * 3600 * 24);
+          console.log(dayDifference, "This is the dayDifference");
 
           const threshold = wateringThreshold[plant.watering];
 
@@ -98,7 +101,6 @@ export default function NotificationsPage() {
   useEffect(() => {
     console.log(ownedPlants); // This will log when ownedPlants updates
   }, [ownedPlants]);
-  
 
   return (
     <View style={{ height: "100%", backgroundColor: "#ffffff" }}>
