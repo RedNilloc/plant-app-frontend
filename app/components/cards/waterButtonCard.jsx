@@ -1,4 +1,11 @@
-import { Text, View, StyleSheet, TouchableOpacity, Image } from "react-native";
+import {
+  Text,
+  View,
+  StyleSheet,
+  TouchableOpacity,
+  Image,
+  Alert,
+} from "react-native";
 import { FugazOne_400Regular } from "@expo-google-fonts/fugaz-one";
 import { Inter_300Light } from "@expo-google-fonts/inter";
 import { KronaOne_400Regular } from "@expo-google-fonts/krona-one";
@@ -8,6 +15,8 @@ import { useState } from "react";
 import { router } from "expo-router";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { useIndividualPlant } from "../../contexts/individualPlantContext";
+import { useUser } from "../../contexts/userContext";
+import axios from "axios";
 
 function capitaliseFirstLetter(text) {
   if (text) {
@@ -21,6 +30,10 @@ function WaterButtonCard({ contents }) {
   const timeDifference = currentDay.getTime() - lastWateredDate.getTime();
   const dayDifference = timeDifference / (1000 * 3600 * 24);
   const plant = useIndividualPlant();
+  const { user } = useUser();
+
+  const plantID = contents.plantID;
+  let updateObj = { plant_id: plantID, date: currentDay };
 
   const wateringThreshold = {
     Minimum: 10,
@@ -41,6 +54,21 @@ function WaterButtonCard({ contents }) {
   function handlePress() {
     plant.id = contents.plant_id;
     router.push("/pages/individualPlantPage");
+  }
+
+  function patchWater() {
+    setNeedsWatered(false);
+    axios
+      .patch(
+        `https://plant-app-backend-87sk.onrender.com/api/users/${user.id}/water`,
+        updateObj
+      )
+      .then((response) => {
+        console.log(response);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   }
 
   return (
@@ -84,7 +112,7 @@ function WaterButtonCard({ contents }) {
               />
             )
           }
-          onPress={() => setNeedsWatered(!needsWatered)}
+          onPress={() => patchWater()}
           //   onPress={() => setNeedsWatered(false)}
         />
       </View>
