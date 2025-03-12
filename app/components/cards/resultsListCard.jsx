@@ -16,9 +16,8 @@ import { useEffect, useState } from "react"
 import SearchResultsModal from "./cardComponents/SearchResultsModal"
 import { router } from "expo-router"
 import { useIndividualPlant } from "../../contexts/individualPlantContext"
+import { useUser } from "../../contexts/userContext"
 import axios from "axios"
-
-const TEST_USER_ID = 2
 
 function capitaliseFirstLetter(text) {
     if (text) {
@@ -28,6 +27,7 @@ function capitaliseFirstLetter(text) {
 
 function ResultsListCard({ contents, zones, favouriteIds }) {
     const { plant } = useIndividualPlant()
+    const { user } = useUser()
 
     const [modalVisible, setModalVisible] = useState(false)
     const [liked, setLiked] = useState(favouriteIds.includes(contents.plant_id))
@@ -48,7 +48,7 @@ function ResultsListCard({ contents, zones, favouriteIds }) {
         if (liked) {
             axios
                 .get(
-                    `https://plant-app-backend-87sk.onrender.com/api/users/${TEST_USER_ID}/fave_plants`
+                    `https://plant-app-backend-87sk.onrender.com/api/users/${user.id}/fave_plants`
                 )
                 .then((res) => {
                     res.data.plants.forEach((val) => {
@@ -68,8 +68,8 @@ function ResultsListCard({ contents, zones, favouriteIds }) {
         setLiked(true)
         axios
             .post(
-                `https://plant-app-backend-87sk.onrender.com/api/users/${TEST_USER_ID}/fave_plants`,
-                { user: TEST_USER_ID, plant: contents.plant_id }
+                `https://plant-app-backend-87sk.onrender.com/api/users/${user.id}/fave_plants`,
+                { user: user.id, plant: contents.plant_id }
             )
             .then((res) => {
                 setIsFavourite(true)
@@ -79,7 +79,6 @@ function ResultsListCard({ contents, zones, favouriteIds }) {
 
     function removeFromFavourites() {
         setLiked(false)
-        // THIS WONT WORK ATM
         axios
             .delete(
                 `https://plant-app-backend-87sk.onrender.com/api/users/fave_plants/${favouritePlantId}`
@@ -113,7 +112,7 @@ function ResultsListCard({ contents, zones, favouriteIds }) {
                 <SearchResultsModal
                     modalVisible={modalVisible}
                     setModalVisible={setModalVisible}
-                    userId={TEST_USER_ID}
+                    userId={user.id}
                     plantId={contents.plant_id}
                     zones={zones}
                 ></SearchResultsModal>
