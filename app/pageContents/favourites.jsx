@@ -22,7 +22,6 @@ export default function Favourites() {
             })
             .catch((err) => {
                 if (err.status === 404) {
-                    console.log("hi")
                     setHasFavourites(false)
                     setLoading(false)
                 }
@@ -42,7 +41,7 @@ export default function Favourites() {
     } else if (!hasFavourites) {
         return (
             <View>
-                <Text>No Plants Favourited!</Text>
+                <Text style={{ fontSize: 25 }}>No Plants Favourited!</Text>
             </View>
         )
     } else {
