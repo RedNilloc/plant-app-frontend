@@ -3,11 +3,12 @@ import { useSearch } from "../../contexts/searchContext"
 import ResultsListCard from "../cards/resultsListCard"
 import { useState, useEffect } from "react"
 import axios from "axios"
-
-TEST_USER_ID = 2
+import { useUser } from "../../contexts/userContext"
 
 export default function SearchedPlantsList() {
     const { params } = useSearch()
+    const { user } = useUser()
+
     const [loading, setLoading] = useState(true)
     const [plantsList, setPlantsList] = useState([
         {
@@ -16,11 +17,12 @@ export default function SearchedPlantsList() {
         },
     ])
     const [zonesList, setZonesList] = useState("")
+    const [favouritesIdList, setFavouritesIdList] = useState([])
 
     function getZonesList() {
         axios
             .get(
-                `https://plant-app-backend-87sk.onrender.com/api/zones/${TEST_USER_ID}`
+                `https://plant-app-backend-87sk.onrender.com/api/zones/${user.id}`
             )
             .then((res) => {
                 setZonesList(
@@ -35,13 +37,24 @@ export default function SearchedPlantsList() {
             })
     }
 
+    function getFavouritesIdList() {
+        axios
+            .get(
+                `https://plant-app-backend-87sk.onrender.com/api/users/${user.id}/fave_plants`
+            )
+            .then((res) => {
+                setFavouritesIdList(
+                    res.data.plants.map((plant) => plant.plant_id)
+                )
+            })
+    }
 
     useEffect(() => {
         getZonesList()
+        getFavouritesIdList()
     }, [])
 
     useEffect(() => {
-        console.log(params.edible)
         let queryString =
             "https://plant-app-backend-87sk.onrender.com/api/plants?"
         let count = 0
@@ -110,7 +123,7 @@ export default function SearchedPlantsList() {
                 queryString += `&edible=${params.flowers}`
             }
         }
-        console.log(queryString)
+
         axios
             .get(queryString)
             .then((response) => {
@@ -134,31 +147,30 @@ export default function SearchedPlantsList() {
             {loading === true ? (
                 <Text style={styles.loading}>Plants are loading... 🌱 </Text>
             ) : (
-                (console.log(plantsList.length),
                 plantsList.map((plant, index) => (
                     <ResultsListCard
                         contents={plant}
                         zones={zonesList}
+                        favouriteIds={favouritesIdList}
                         key={index}
                     />
-                )))
+                ))
             )}
         </View>
     )
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "#ffffff",
-    alignItems: "center",
-  },
-  loading: {
-    fontSize: 20,
-    marginTop: 20,
-  },
-});
-
+    container: {
+        flex: 1,
+        backgroundColor: "#ffffff",
+        alignItems: "center",
+    },
+    loading: {
+        fontSize: 20,
+        marginTop: 20,
+    },
+})
 
 {
     /* <Text>
