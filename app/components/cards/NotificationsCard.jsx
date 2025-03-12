@@ -24,7 +24,6 @@ export default function NotificationsCard({ plant }) {
             : `${plant.common_name} is all good for now!`}
         </Text>
       </View>
-      <Button style={styles.button}></Button>
     </SafeAreaView>
   );  
 }
