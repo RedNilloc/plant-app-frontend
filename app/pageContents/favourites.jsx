@@ -7,6 +7,8 @@ import { useUser } from "../contexts/userContext"
 
 export default function Favourites() {
     const [favouritePlants, setFavouritePlants] = useState(false)
+    const [hasFavourites, setHasFavourites] = useState(true)
+    const [loading, setLoading] = useState(true)
     const { user } = useUser()
 
     function getFavourites() {
@@ -16,6 +18,14 @@ export default function Favourites() {
             )
             .then((res) => {
                 setFavouritePlants(res.data.plants)
+                setLoading(false)
+            })
+            .catch((err) => {
+                if (err.status === 404) {
+                    console.log("hi")
+                    setHasFavourites(false)
+                    setLoading(false)
+                }
             })
     }
 
@@ -23,13 +33,13 @@ export default function Favourites() {
         getFavourites()
     }, [])
 
-    if (favouritePlants === false) {
+    if (loading) {
         return (
             <View>
                 <Text>Loading...</Text>
             </View>
         )
-    } else if (favouritePlants.length === 0) {
+    } else if (!hasFavourites) {
         return (
             <View>
                 <Text>No Plants Favourited!</Text>
