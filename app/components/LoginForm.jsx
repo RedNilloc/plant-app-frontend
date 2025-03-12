@@ -7,10 +7,11 @@ import {
   TouchableOpacity,
   Alert,
 } from "react-native";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import poison_ivy from "../../assets/images/poison-ivy.png.png";
 import { useRouter } from "expo-router";
 import axios from "axios";
+import { useUser } from "../contexts/userContext";
 
 export default function LoginForm() {
   const router = useRouter();
@@ -18,21 +19,52 @@ export default function LoginForm() {
     email: "",
     password: "",
   });
+  const { user, setUser } = useUser();
+
+  const [usersList, setUsersList] = useState([]);
+
+  useEffect(() => {
+    axios
+      .get("https://plant-app-backend-87sk.onrender.com/api/users")
+      .then((response) => {
+        setUsersList(response.data.users);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }, []);
 
   function handleLogin() {
-    if (!form) {
-      Alert.alert("ERROR!", "Please enter details");
+    if (form.email.length < 10 || form.password.length < 3) {
+      Alert.alert("ERROR!", "Please enter valid details");
       return;
     }
+
+    usersList.forEach((eachUser) => {
+      if (form.email === eachUser.email) {
+        user.user_id = eachUser.user_id;
+        user.username = eachUser.username;
+        user.email = eachUser.email;
+        user.geolocation = eachUser.geolocation;
+        //VERSION WITH STATE THAT I COULDN'T GET WORKING
+        // setUser({
+        //   user_id: eachUser.user_id,
+        //   username: eachUser.username,
+        //   email: eachUser.email,
+        //   geolocation: eachUser.geolocation,
+        // });
+      }
+    });
+
+    Alert.alert("Successfully logged in!");
+    router.push("../pages/homePage");
   }
 
   return (
     <View style={styles.container}>
-      <View style={styles.header}>
-        <Image source={poison_ivy} style={styles.headerImg} />
-        <Text style={styles.title}>Sign-in to the Plant Zone!</Text>
-        <Text style={styles.subtitle}>Why stop at a green thumb?</Text>
-      </View>
+      <Image source={poison_ivy} style={styles.headerImg} />
+      {/* <Text style={styles.title}>Log in to the Plant Zone!</Text>
+        <Text style={styles.subtitle}>Why stop at a green thumb?</Text> */}
       <View style={styles.form}>
         <View style={styles.input}>
           <Text style={styles.inputLabel}>Email address</Text>
@@ -62,16 +94,14 @@ export default function LoginForm() {
           <View style={styles.formAction}>
             <TouchableOpacity
               onPress={() => {
-                // handle onPress
-                Alert.alert("Successfully logged in!");
-                router.push("../pages/homePage");
+                handleLogin();
               }}
             >
               <View
                 style={styles.button}
                 onPress={() => router.push("../pages/homePage")}
               >
-                <Text style={styles.buttonText}>Sign in</Text>
+                <Text style={styles.text}>Sign in</Text>
               </View>
             </TouchableOpacity>
           </View>
@@ -83,12 +113,12 @@ export default function LoginForm() {
 
 const styles = StyleSheet.create({
   container: {
-    padding: 24,
+    paddingHorizontal: 10,
     flex: 1,
   },
   headerImg: {
-    width: 80,
-    height: 80,
+    width: 120,
+    height: 120,
     alignSelf: "center",
     marginBottom: 36,
   },
@@ -104,9 +134,11 @@ const styles = StyleSheet.create({
     fontWeight: "500",
     color: "#929292",
     textAlign: "center",
+    margin: 15,
   },
   input: {
     marginBottom: 16,
+    borderRadius: 0,
   },
   inputLabel: {
     fontSize: 17,
@@ -119,7 +151,7 @@ const styles = StyleSheet.create({
     backgroundColor: "#fff",
     paddingVertical: 10,
     paddingHorizontal: 16,
-    borderRadius: 12,
+    borderRadius: 0,
     fonrtSize: 15,
     fontWeight: "500",
     color: "#222",
@@ -142,18 +174,15 @@ const styles = StyleSheet.create({
   },
   button: {
     backgroundColor: "#8EC255",
-    borderRadius: 8,
-
-    borderColor: "#075eec",
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "center",
-    paddingVertical: 10,
-    paddingHorizontal: 20,
+    margin: 20,
+    padding: 10,
+    width: 220,
+    alignSelf: "center",
   },
-  buttonText: {
-    fontSize: 18,
-    fontWeight: "600",
-    color: "#fff",
+  text: {
+    color: "#ffffff",
+    alignSelf: "center",
+    fontFamily: "FugazOne_400Regular",
+    fontSize: 30,
   },
 });

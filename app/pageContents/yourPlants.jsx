@@ -3,7 +3,7 @@ import {
   View,
   StyleSheet,
   TouchableOpacity,
-  TextInput,
+  // TextInput,
   KeyboardAvoidingView,
   Platform,
   Keyboard,
@@ -16,8 +16,8 @@ import { useRouter } from "expo-router";
 import FontAwesome6 from "@expo/vector-icons/FontAwesome6";
 import { useUser } from "../contexts/userContext";
 import convertToBinomial from "../utility/formatBinomialNames";
-import IndoorOutdoor from "../components/yourPlantsComponents/YourPlantIndoorOutdoor";
-import SunlightLevel from "../components/yourPlantsComponents/YourPlantSunlightLevel";
+// import IndoorOutdoor from "../components/yourPlantsComponents/YourPlantIndoorOutdoor";
+// import SunlightLevel from "../components/yourPlantsComponents/YourPlantSunlightLevel";
 import AddZoneToYourPlants from "../components/yourPlantsComponents/AddZone";
 
 // function capitaliseFirstLetter(text) {
@@ -51,8 +51,9 @@ export default function YourPlants() {
 
   const fetchZones = async () => {
     try {
+      console.log(user.id, "<----- user");
       const response = await fetch(
-        `https://plant-app-backend-87sk.onrender.com/api/zones/${user.user_id}`
+        `https://plant-app-backend-87sk.onrender.com/api/zones/${user.id}`
       );
       if (!response.ok) throw new Error("Failed to fetch zones");
       const data = await response.json();
@@ -68,7 +69,7 @@ export default function YourPlants() {
   const fetchOwnedPlants = async () => {
     try {
       const response = await fetch(
-        `https://plant-app-backend-87sk.onrender.com/api/users/${user.user_id}/owned_plants`
+        `https://plant-app-backend-87sk.onrender.com/api/users/${user.id}/owned_plants`
       );
       if (!response.ok) throw new Error("Failed to fetch plants");
       const data = await response.json();
@@ -78,28 +79,6 @@ export default function YourPlants() {
       console.error("Error fetching zones:", error);
     } finally {
       setLoading(false);
-    }
-  };
-
-  const addZone = async () => {
-    if (newZone.trim() === "") return;
-    try {
-      const response = await fetch(
-        `https://plant-app-backend-87sk.onrender.com/api/zones/`,
-        {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({}),
-        }
-      );
-
-      if (!response.ok) throw new Error("Failed to add zone");
-      const newZoneData = await response.json();
-      setZones([...zones, newZoneData]);
-
-      setNewZone("");
-    } catch (error) {
-      console.error("Error adding zone:", error);
     }
   };
 
@@ -205,20 +184,7 @@ export default function YourPlants() {
             })}
 
             <View style={styles.addZoneContainer}>
-              <View style={styles.componentContainer}>
-                <TextInput
-                  style={styles.input}
-                  placeholder="Enter Zone..."
-                  value={newZone}
-                  onChangeText={setNewZone}
-                />
-                {/* <IndoorOutdoor></IndoorOutdoor>
-                <SunlightLevel></SunlightLevel> */}
-                <AddZoneToYourPlants></AddZoneToYourPlants>
-                <TouchableOpacity style={styles.addButton} onPress={addZone}>
-                  <Text style={styles.textButton}>+ Add Zone</Text>
-                </TouchableOpacity>
-              </View>
+              <AddZoneToYourPlants></AddZoneToYourPlants>
             </View>
           </KeyboardAvoidingView>
         </TouchableWithoutFeedback>

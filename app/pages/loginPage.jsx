@@ -9,7 +9,7 @@ export default function LoginPage() {
     <View style={{ height: "100%", backgroundColor: "#ffffff" }}>
       <SafeAreaView style={styles.sav}>
         <ScrollView bounces={false}>
-          <PZHeader>Log in</PZHeader>
+          <PZHeader>Sign in</PZHeader>
           <View style={styles.pageContent}>
             <Login></Login>
           </View>
