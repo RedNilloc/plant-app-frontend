@@ -24,7 +24,13 @@ function capitaliseFirstLetter(text) {
   }
 }
 
-function WaterButtonCard({ contents }) {
+function WaterButtonCard({
+  contents,
+  ownedPlants,
+  setOwnedPlants,
+  zones,
+  setZones,
+}) {
   const currentDay = new Date();
   const lastWateredDate = new Date(contents.last_watered);
   const timeDifference = currentDay.getTime() - lastWateredDate.getTime();
@@ -32,7 +38,9 @@ function WaterButtonCard({ contents }) {
   const plant = useIndividualPlant();
   const { user } = useUser();
 
-  const plantID = contents.plantID;
+  const [plantDeleted, setPlantDeleted] = useState(false);
+
+  const plantID = contents.owned_plant_key;
   let updateObj = { plant_id: plantID, date: currentDay };
 
   const wateringThreshold = {
@@ -71,55 +79,89 @@ function WaterButtonCard({ contents }) {
       });
   }
 
-  return (
-    <TouchableOpacity style={styles.container} onPress={() => handlePress()}>
-      <Image
-        style={styles.thumbnail}
-        source={{ uri: contents.default_image }}
-      />
-      <View style={styles.textContents}>
-        <Text style={styles.titleText}>
-          {capitaliseFirstLetter(contents.common_name)}
-        </Text>
-        <View>
-          {needsWatered ? (
-            <Text style={styles.info}>This plant needs water!</Text>
-          ) : (
-            <Text style={styles.info}>This plant is ok</Text>
-          )}
-        </View>
-      </View>
-      <View>
-        <Button
-          buttonStyle={styles.waterButton}
-          title=""
-          icon={
-            needsWatered ? (
-              <MaterialCommunityIcons
-                name="water-alert-outline"
-                size={50}
-                color="black"
-                backgroundColor="#f29d97"
-                borderRadius="10%"
-                style={styles.alert}
-              />
-            ) : (
-              <MaterialCommunityIcons
-                name="water-check"
-                size={50}
-                color="black"
-                style={styles.tick}
-              />
-            )
-          }
-          onPress={() => patchWater()}
-          //   onPress={() => setNeedsWatered(false)}
-        />
-      </View>
-    </TouchableOpacity>
-  );
-}
+  const deletePlant = (ownedPlants) => {
+    console.log(ownedPlants, "<------ ownedplants");
+    const updatedPlants = ownedPlants.filter(
+      (plant) => plant.plant_id !== plantID
+    );
+    console.log(contents, "<-- Contents");
+    console.log(plantID, "<-- PlantID");
+    axios
+      .delete(
+        `https://plant-app-backend-87sk.onrender.com/api/users/owned_plants/${plantID}`
+      )
+      .then((res) => {
+        setPlantDeleted(true);
+        setOwnedPlants(updatedPlants);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
 
+  if (plantDeleted) {
+    return <></>;
+  } else {
+    return (
+      <TouchableOpacity style={styles.container} onPress={() => handlePress()}>
+        <Image
+          style={styles.thumbnail}
+          source={{ uri: contents.default_image }}
+        />
+        <View style={styles.textContents}>
+          <Text style={styles.titleText}>
+            {capitaliseFirstLetter(contents.common_name)}
+          </Text>
+          <View>
+            {needsWatered ? (
+              <Text style={styles.info}>This plant needs water!</Text>
+            ) : (
+              <Text style={styles.info}>This plant is ok</Text>
+            )}
+          </View>
+          <Button
+            buttonStyle={styles.delete}
+            onPress={() => deletePlant(ownedPlants)}
+            icon={
+              <MaterialCommunityIcons
+                name="trash-can-outline"
+                size={30}
+                color="black"
+              />
+            }
+          />
+        </View>
+        <View>
+          <Button
+            buttonStyle={styles.waterButton}
+            title=""
+            icon={
+              needsWatered ? (
+                <MaterialCommunityIcons
+                  name="water-alert-outline"
+                  size={50}
+                  color="black"
+                  backgroundColor="#f29d97"
+                  borderRadius="10%"
+                  style={styles.alert}
+                />
+              ) : (
+                <MaterialCommunityIcons
+                  name="water-check"
+                  size={50}
+                  color="black"
+                  style={styles.tick}
+                />
+              )
+            }
+            onPress={() => patchWater()}
+            //   onPress={() => setNeedsWatered(false)}
+          />
+        </View>
+      </TouchableOpacity>
+    );
+  }
+}
 export default WaterButtonCard;
 
 const styles = StyleSheet.create({
@@ -155,4 +197,7 @@ const styles = StyleSheet.create({
     backgroundColor: "#98b8e8",
   },
   info: { margin: 5 },
+  delete: {
+    backgroundColor: "#E8F3DD",
+  },
 });

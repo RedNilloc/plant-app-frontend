@@ -33,20 +33,16 @@ export default function AddZoneToYourPlants() {
   const router = useRouter();
 
   const handleSunLevel = (value) => {
-    console.log(sunLightValue, "<--------");
     setSunLightValue(value);
   };
 
   const handleIndoorOutdoor = (value) => {
-    console.log(locationValue, "<--------");
     setlocationValue(value);
   };
 
   const handleZoneName = (text) => {
     setZoneName(text);
-    console.log(setZoneName, "<--------- zone name");
   };
-  console.log(setZoneName, "<--------- zone name outside");
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -58,29 +54,26 @@ export default function AddZoneToYourPlants() {
       sun_level: sunLightValue,
       zone_name: zoneName,
     };
-    console.log(newZone, "NewZone");
+
     axios
       .post(`https://plant-app-backend-87sk.onrender.com/api/zones`, newZone)
       .then(() => {
-        console.log(sunLightValue, "<--- sunlight value in axios");
         const createdZone = Response.data.zone;
         setZoneName("");
         setlocationValue("");
         setSunLightValue("");
         setError(null);
+        // setOptimisticZone(true);
       })
       .catch((error) => {
         setError("Error Adding Zone");
       });
-
-    console.log(sunLightValue, "<--- sunlight value");
-    setOptimisticZone(true);
   };
 
   const AddZoneSpace = () => {
     if (zoneName.trim() === "") return;
-    //  setZoneName([...zoneName,  zoneName ]);
-    //  setNewZone("");
+    // setZoneName([...zoneName, zoneName]);
+    // setNewZone("");
     <View style={styles.headerRow}>
       <Text style={styles.textSectionHeader}>{zoneName}</Text>
       <TouchableOpacity
@@ -123,7 +116,7 @@ export default function AddZoneToYourPlants() {
           setOpen={setOpenLight}
           setValue={setSunLightValue}
           setItems={setSunLightItems}
-          zIndex={1000}
+          zIndex={3000}
           zIndexInverse={1000}
           dropDownDirection="BOTTOM"
           dropDownContainerStyle={{
@@ -150,7 +143,7 @@ export default function AddZoneToYourPlants() {
           setOpen={setOpenLocation}
           setValue={setlocationValue}
           setItems={setlocationItems}
-          zIndex={3000}
+          zIndex={1000}
           zIndexInverse={1000}
           dropDownDirection="BOTTOM"
           textStyle={{
@@ -173,12 +166,12 @@ const styles = StyleSheet.create({
   },
   dropdownContainer: {
     margin: 20,
-    marginTop: 50,
-    marginBottom: 50,
+    marginTop: 10,
+    marginBottom: 10,
   },
   dropdown: {
-    marginLeft: 50,
-    marginRight: 50,
+    marginLeft: 30,
+    marginRight: 30,
     width: 290,
     backgroundColor: "#FFFFFF",
     borderColor: "#8EC255",
@@ -192,8 +185,8 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     padding: 15,
     borderRadius: 5,
-    marginRight: 10,
     width: "70%",
+    marginLeft: 50,
   },
   addButton: {
     backgroundColor: "#8EC255",
@@ -201,6 +194,8 @@ const styles = StyleSheet.create({
     paddingHorizontal: 15,
     alignItems: "center",
     width: "30%",
+    justifyContent: "center",
+    alignSelf: "center",
   },
   sectionHeader: {
     paddingVertical: 10,
@@ -230,5 +225,6 @@ const styles = StyleSheet.create({
     width: "40%",
     justifyContent: "center",
     alignItems: "center",
+    alignSelf: "center",
   },
 });

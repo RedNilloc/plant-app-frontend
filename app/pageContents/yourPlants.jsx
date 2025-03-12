@@ -3,7 +3,6 @@ import {
   View,
   StyleSheet,
   TouchableOpacity,
-  // TextInput,
   KeyboardAvoidingView,
   Platform,
   Keyboard,
@@ -19,6 +18,8 @@ import convertToBinomial from "../utility/formatBinomialNames";
 // import IndoorOutdoor from "../components/yourPlantsComponents/YourPlantIndoorOutdoor";
 // import SunlightLevel from "../components/yourPlantsComponents/YourPlantSunlightLevel";
 import AddZoneToYourPlants from "../components/yourPlantsComponents/AddZone";
+import axios from "axios";
+import WaterButtonCard from "../components/cards/waterButtonCard";
 
 // function capitaliseFirstLetter(text) {
 //   return text.charAt(0).toUpperCase() + text.slice(1);
@@ -38,16 +39,16 @@ export default function YourPlants() {
   ]);
   const [newZone, setNewZone] = useState("");
   const [swipedZone, setSwipedZone] = useState(null);
-  const [loading, setLoading] = useState(true);
+  const [zonesLoading, setZonesLoading] = useState(true);
+  const [plantsLoading, setPlantsLoading] = useState(true);
   const [ownedPlants, setOwnedPlants] = useState([]);
 
   useEffect(() => {
     if (user) {
-      setLoading(true);
       fetchZones();
       fetchOwnedPlants();
     }
-  }, [user]);
+  }, []);
 
   const fetchZones = async () => {
     try {
@@ -62,7 +63,7 @@ export default function YourPlants() {
     } catch (error) {
       console.error("Error fetching zones:", error);
     } finally {
-      setLoading(false);
+      setZonesLoading(false);
     }
   };
 
@@ -78,13 +79,22 @@ export default function YourPlants() {
     } catch (error) {
       console.error("Error fetching zones:", error);
     } finally {
-      setLoading(false);
+      setPlantsLoading(false);
     }
   };
 
-  const deleteZone = (zoneName) => {
-    const updatedZone = zones.filter((zone) => zone.zoneName !== zoneName);
-    setZones(updatedZone);
+  const deleteZone = (zone_id) => {
+    const updatedZone = zones.filter((zone) => zone.zone_id !== zone_id);
+    axios
+      .delete(
+        `https://plant-app-backend-87sk.onrender.com/api/zones/${zone_id}`
+      )
+      .then(() => {
+        setZones(updatedZone);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   };
 
   const panResponder = (zoneName) => {
@@ -105,7 +115,41 @@ export default function YourPlants() {
     });
   };
 
-  if (loading) {
+  // const deletePlant = (ownedPlants) => {
+  //   const updatedPlants = zones.filter(
+  //     (ownedPlants) => ownedPlants.plant_id !== plant_id
+  //   );
+  //   axios
+  //     .delete(
+  //       `https://plant-app-backend-87sk.onrender.com/api/users/owned_plants/${plant_id}`
+  //     )
+  //     .then(() => {
+  //       setOwnedPlants(updatedPlants);
+  //     })
+  //     .catch((err) => {
+  //       console.log(err);
+  //     });
+  // };
+
+  // const panResponder2 = (plant_id) => {
+  //   let dx = 0;
+
+  //   return PanResponder.create({
+  //     onStartShouldSetPanResponder: () => true,
+  //     onPanResponderMove: (_, gestureState) => {
+  //       dx = gestureState.dx;
+  //     },
+  //     onPanResponderRelease: (_, gestureState) => {
+  //       if (dx < -50) {
+  //         setSwipedZone(plant_id);
+  //       } else {
+  //         setSwipedZone(null);
+  //       }
+  //     },
+  //   });
+  // };
+
+  if (plantsLoading || zonesLoading) {
     return <Text>Loading...</Text>;
   } else {
     return (
@@ -139,7 +183,7 @@ export default function YourPlants() {
                       {swipedZone === zone.zone_name && (
                         <TouchableOpacity
                           style={styles.deleteButton}
-                          onPress={() => deleteZone(zone.zone_name)}
+                          onPress={() => deleteZone(zone.zone_id)}
                         >
                           <FontAwesome6
                             name="trash-can"
@@ -154,17 +198,16 @@ export default function YourPlants() {
                   <View style={styles.sectionBody}>
                     {plantInZone.length > 0 ? (
                       plantInZone.map((plant, index) => {
-                        const cardContent = {
-                          title: plant.common_name,
-                          lineOne: convertToBinomial(plant.sci_name),
-                          lineTwo: `${plant.maintenance} maintenance ${plant.type}`,
-                          imgUrl: plant.default_image,
-                          plantId: plant.plant_id,
-                        };
-
                         return (
                           <View style={styles.cardContainer}>
-                            <Card contents={cardContent} key={index} />
+                            <WaterButtonCard
+                              contents={plant}
+                              key={index}
+                              ownedPlants={ownedPlants}
+                              setOwnedPlants={setOwnedPlants}
+                              zones={zones}
+                              setZones={setZones}
+                            />
                           </View>
                         );
                       })
