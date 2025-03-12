@@ -22,7 +22,6 @@ export default function Login() {
 
   return (
     <View style={styles.container}>
-      <Text>Current user: {user.username}</Text>
       <LoginForm></LoginForm>
       <Text style={styles.formFooter}>
         {" "}
@@ -43,10 +42,9 @@ export default function Login() {
 const styles = StyleSheet.create({
   container: {
     padding: 24,
-    marginBottom: 50,
+    marginBottom: 40,
     flex: 1,
   },
-
   formFooter: {
     fontSize: 17,
     fontWeight: "600",
