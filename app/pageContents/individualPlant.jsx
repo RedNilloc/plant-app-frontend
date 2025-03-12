@@ -58,11 +58,17 @@ export default function IndividualPlant({ plantId, userId }) {
 
       <IndividualPlantsButtons userId={userId} plantId={plantId} />
 
-      <View style={styles.descriptionContainer}>
+      <View
+        style={
+          plant.price
+            ? styles.descriptionContainer
+            : styles.descriptionContainerNoPrice
+        }
+      >
         <Text style={styles.description}>{plant.description}</Text>
       </View>
 
-      <ExtraInfo plantPrice={plant.price} />
+      {plant.price ? <ExtraInfo plantPrice={plant.price} /> : ""}
     </View>
   );
 }
@@ -84,11 +90,16 @@ const styles = StyleSheet.create({
     marginLeft: "auto",
     marginRight: "auto",
   },
-
   descriptionContainer: {
     width: "80%",
     marginLeft: "auto",
     marginRight: "auto",
+  },
+  descriptionContainerNoPrice: {
+    width: "80%",
+    marginLeft: "auto",
+    marginRight: "auto",
+    paddingBottom: 95,
   },
   description: {
     fontSize: 16,

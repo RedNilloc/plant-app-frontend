@@ -4,12 +4,11 @@ export default function ExtraInfo({ plantPrice }) {
   return (
     <View style={styles.extraInfoContainer}>
       <Text>
-        <Text style={styles.textPriceBold}>Price:</Text> £
-        {plantPrice ? plantPrice : "unavailable"}
+        <Text style={styles.textPriceBold}>Price:</Text> £{plantPrice}
       </Text>
       <Text>
         <Text style={styles.textAvailableFromBold}>Available From: {"\n"}</Text>
-        {plantPrice ? "Notcutts" : "N/A"}
+        Notcutts
       </Text>
     </View>
   );
