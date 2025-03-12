@@ -42,33 +42,46 @@ export default function SignedInView() {
             path: "/community",
             image: require("../../assets/images/redpetalplant.jpg"),
         },
+        {
+            title: "Settings",
+            path: "./settingsPage",
+            image: require("../../assets/images/settings-background.jpg"),
+        },
     ]
-    return (
-        <View style={styles.pageContent}>
-            <Text style={styles.username}>{user.username}</Text>
-            {pages.map(({ title, path, image }) => (
-                <View key={title}>
-                    <TouchableOpacity
-                        style={styles.button}
-                        onPress={() => router.push(path)}
-                    >
-                        <ImageBackground source={image} style={styles.image}>
-                            <Text style={styles.text}>{title}</Text>
-                        </ImageBackground>
-                    </TouchableOpacity>
-                </View>
-            ))}
-        </View>
-    )
+
+    if (fontsLoaded) {
+        return (
+            <View style={styles.pageContent}>
+                <Text style={styles.username}>{user.username}</Text>
+                {pages.map(({ title, path, image }) => (
+                    <View key={title} style={styles}>
+                        <TouchableOpacity
+                            style={styles.button}
+                            onPress={() => router.push(path)}
+                        >
+                            <ImageBackground
+                                source={image}
+                                style={styles.image}
+                            >
+                                <Text style={styles.text}>{title}</Text>
+                            </ImageBackground>
+                        </TouchableOpacity>
+                    </View>
+                ))}
+            </View>
+        )
+    } else return <></>
 }
 
 const styles = StyleSheet.create({
     button: {
+        minWidth: "80%",
+        height: "20%",
+        marginBottom: 0,
+    },
+    buttonView: {
         minHeight: "20%",
         maxHeight: "20%",
-        minWidth: "80%",
-        maxWidth: "80%",
-        marginBottom: 25,
     },
     image: {
         flex: 1,
@@ -87,6 +100,8 @@ const styles = StyleSheet.create({
         paddingHorizontal: 5,
     },
     pageContent: {
+        marginTop: 80,
+        marginBottom: 100,
         justifyContent: "center",
         alignItems: "center",
         backgroundColor: "#ffffff",
