@@ -3,7 +3,7 @@ import {
   View,
   StyleSheet,
   TouchableOpacity,
-  TextInput,
+  // TextInput,
   KeyboardAvoidingView,
   Platform,
   Keyboard,
@@ -11,51 +11,75 @@ import {
   PanResponder,
 } from "react-native";
 import Card from "../components/cards/genericCard";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useRouter } from "expo-router";
 import FontAwesome6 from "@expo/vector-icons/FontAwesome6";
+import { useUser } from "../contexts/userContext";
+import convertToBinomial from "../utility/formatBinomialNames";
+// import IndoorOutdoor from "../components/yourPlantsComponents/YourPlantIndoorOutdoor";
+// import SunlightLevel from "../components/yourPlantsComponents/YourPlantSunlightLevel";
+import AddZoneToYourPlants from "../components/yourPlantsComponents/AddZone";
+
+// function capitaliseFirstLetter(text) {
+//   return text.charAt(0).toUpperCase() + text.slice(1);
+// }
 
 export default function YourPlants() {
+  const { user } = useUser();
   const router = useRouter();
   const [zones, setZones] = useState([
     {
-      //plants property should be an empty array. Fake data for viewing purposes
-      zoneName: "Balcony",
-      plants: [
-        { id: 1, title: "Roses", Sunlight: "Needs Sun", Water: "Once a day" },
-        {
-          id: 2,
-          title: "Cactus",
-          Sunlight: "Plenty of Sun required",
-          Water: "Little bit",
-        },
-      ],
-    },
-    {
-      //plants property should be an empty array. Fake data for viewing purposes
-      zoneName: "Garden",
-      plants: [
-        {
-          id: 3,
-          title: "Tomato",
-          Sunlight: "Plenty of Sun required",
-          Water: "Plenty of water",
-        },
-      ],
-    },
-    {
-      zoneName: "Indoor",
-      plants: [],
+      is_outdoor: true,
+      sun_level: "full sun",
+      user_key: 2,
+      zone_id: 1,
+      zone_name: "balcony",
     },
   ]);
-
   const [newZone, setNewZone] = useState("");
   const [swipedZone, setSwipedZone] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [ownedPlants, setOwnedPlants] = useState([]);
 
-  const addZone = () => {
-    if (newZone.trim() === "") return;
-    setZones([...zones, { zoneName: newZone, plants: [] }]);
-    setNewZone("");
+  useEffect(() => {
+    if (user) {
+      setLoading(true);
+      fetchZones();
+      fetchOwnedPlants();
+    }
+  }, [user]);
+
+  const fetchZones = async () => {
+    try {
+      console.log(user.id, "<----- user");
+      const response = await fetch(
+        `https://plant-app-backend-87sk.onrender.com/api/zones/${user.id}`
+      );
+      if (!response.ok) throw new Error("Failed to fetch zones");
+      const data = await response.json();
+      console.log(data.zones, "<-----------");
+      setZones(data.zones);
+    } catch (error) {
+      console.error("Error fetching zones:", error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const fetchOwnedPlants = async () => {
+    try {
+      const response = await fetch(
+        `https://plant-app-backend-87sk.onrender.com/api/users/${user.id}/owned_plants`
+      );
+      if (!response.ok) throw new Error("Failed to fetch plants");
+      const data = await response.json();
+      console.log(data.plants, "<----------- owned plants");
+      setOwnedPlants(data.plants);
+    } catch (error) {
+      console.error("Error fetching zones:", error);
+    } finally {
+      setLoading(false);
+    }
   };
 
   const deleteZone = (zoneName) => {
@@ -81,76 +105,93 @@ export default function YourPlants() {
     });
   };
 
-  return (
-    <View style={styles.container}>
-      <TouchableWithoutFeedback
-        onPress={() => {
-          Keyboard.dismiss();
-          setSwipedZone(null);
-        }}
-        accessible={false}
-      >
-        <KeyboardAvoidingView
-          behavior={Platform.OS === "ios" ? "padding" : undefined}
+  if (loading) {
+    return <Text>Loading...</Text>;
+  } else {
+    return (
+      <View style={styles.container}>
+        <TouchableWithoutFeedback
+          onPress={() => {
+            Keyboard.dismiss();
+            setSwipedZone(null);
+          }}
+          accessible={false}
         >
-          {zones.map(({ zoneName, plants }) => (
-            <View style={styles.section} key={zoneName}>
-              <View
-                style={styles.sectionHeader}
-                {...panResponder(zoneName).panHandlers}
-              >
-                <View style={styles.headerRow}>
-                  <Text style={styles.textSectionHeader}>{zoneName}</Text>
+          <KeyboardAvoidingView
+            behavior={Platform.OS === "ios" ? "padding" : undefined}
+          >
+            {zones.map((zone) => {
+              const plantInZone = ownedPlants.filter(
+                (plant) => plant.zone_key === zone.zone_id
+              );
 
-                  {swipedZone === zoneName && (
-                    <TouchableOpacity
-                      style={styles.deleteButton}
-                      onPress={() => deleteZone(zoneName)}
-                    >
-                      <FontAwesome6 name="trash-can" size={26} color="red" />
-                    </TouchableOpacity>
-                  )}
-                </View>
-              </View>
+              return (
+                <View style={styles.section} key={zone.zone_name}>
+                  <View
+                    style={styles.sectionHeader}
+                    {...panResponder(zone.zone_name).panHandlers}
+                  >
+                    <View style={styles.headerRow}>
+                      <Text style={styles.textSectionHeader}>
+                        {zone.zone_name}
+                      </Text>
 
-              <View style={styles.sectionBody}>
-                {plants.length > 0 ? (
-                  plants.map((plant) => (
-                    <View style={styles.cardContainer} key={plant.id}>
-                      <Card contents={plant} />
+                      {swipedZone === zone.zone_name && (
+                        <TouchableOpacity
+                          style={styles.deleteButton}
+                          onPress={() => deleteZone(zone.zone_name)}
+                        >
+                          <FontAwesome6
+                            name="trash-can"
+                            size={26}
+                            color="red"
+                          />
+                        </TouchableOpacity>
+                      )}
                     </View>
-                  ))
-                ) : (
-                  <Text style={styles.noPlantsText}>No plants added</Text>
-                )}
+                  </View>
 
-                <TouchableOpacity
-                  style={styles.newPlantButton}
-                  onPress={() => router.push("/pages/searchPage")}
-                >
-                  <Text style={styles.textButton}>+ Find New Plant</Text>
-                </TouchableOpacity>
-              </View>
+                  <View style={styles.sectionBody}>
+                    {plantInZone.length > 0 ? (
+                      plantInZone.map((plant, index) => {
+                        const cardContent = {
+                          title: plant.common_name,
+                          lineOne: convertToBinomial(plant.sci_name),
+                          lineTwo: `${plant.maintenance} maintenance ${plant.type}`,
+                          imgUrl: plant.default_image,
+                          plantId: plant.plant_id,
+                        };
+
+                        return (
+                          <View style={styles.cardContainer}>
+                            <Card contents={cardContent} key={index} />
+                          </View>
+                        );
+                      })
+                    ) : (
+                      <Text style={styles.noPlantsText}>No plants added</Text>
+                    )}
+
+                    <TouchableOpacity
+                      style={styles.newPlantButton}
+                      onPress={() => router.push("/pages/searchPage")}
+                    >
+                      <Text style={styles.textButton}>+ Find New Plant</Text>
+                    </TouchableOpacity>
+                  </View>
+                </View>
+              );
+            })}
+
+            <View style={styles.addZoneContainer}>
+              <AddZoneToYourPlants></AddZoneToYourPlants>
             </View>
-          ))}
-
-          <View style={styles.addZoneContainer}>
-            <TextInput
-              style={styles.input}
-              placeholder="Enter Zone..."
-              value={newZone}
-              onChangeText={setNewZone}
-            />
-            <TouchableOpacity style={styles.addButton} onPress={addZone}>
-              <Text style={styles.textButton}>+ Add Zone</Text>
-            </TouchableOpacity>
-          </View>
-        </KeyboardAvoidingView>
-      </TouchableWithoutFeedback>
-    </View>
-  );
+          </KeyboardAvoidingView>
+        </TouchableWithoutFeedback>
+      </View>
+    );
+  }
 }
-
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -222,5 +263,9 @@ const styles = StyleSheet.create({
   },
   deleteButton: {
     marginRight: 20,
+  },
+  componentContainer: {
+    alignItems: "center",
+    flexDirection: "column",
   },
 });
