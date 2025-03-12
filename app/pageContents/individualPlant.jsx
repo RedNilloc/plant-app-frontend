@@ -75,6 +75,7 @@ export default function IndividualPlant({ plantId, userId }) {
 
 const styles = StyleSheet.create({
   title: {
+    maxWidth: "80%",
     fontSize: 30,
     marginBottom: 20,
     fontFamily: "KronaOne_400Regular",
