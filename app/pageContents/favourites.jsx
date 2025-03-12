@@ -3,7 +3,7 @@ import NoButtonCard from "../components/cards/favouritesCard"
 import { useEffect, useState } from "react"
 import axios from "axios"
 import convertToBinomial from "../utility/formatBinomialNames"
-import { useUser } from "../../contexts/userContext"
+import { useUser } from "../contexts/userContext"
 
 export default function Favourites() {
     const [favouritePlants, setFavouritePlants] = useState(false)
