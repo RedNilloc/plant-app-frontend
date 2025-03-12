@@ -8,9 +8,9 @@ function CareLevel() {
   const [value, setValue] = useState(null);
   const [items, setItems] = useState([
     { label: "Any", value: "any" },
-    { label: "Low", value: "low" },
-    { label: "Medium", value: "moderate" },
-    { label: "High", value: "high" },
+    { label: "Low", value: "Low" },
+    { label: "Medium", value: "Moderate" },
+    { label: "High", value: "High" },
   ]);
   const { params } = useSearch();
   return (
