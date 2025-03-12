@@ -3,11 +3,12 @@ import { useSearch } from "../../contexts/searchContext"
 import ResultsListCard from "../cards/resultsListCard"
 import { useState, useEffect } from "react"
 import axios from "axios"
-
-TEST_USER_ID = 2
+import { useUser } from "../../contexts/userContext"
 
 export default function SearchedPlantsList() {
     const { params } = useSearch()
+    const { user } = useUser()
+
     const [loading, setLoading] = useState(true)
     const [plantsList, setPlantsList] = useState([
         {
@@ -21,7 +22,7 @@ export default function SearchedPlantsList() {
     function getZonesList() {
         axios
             .get(
-                `https://plant-app-backend-87sk.onrender.com/api/zones/${TEST_USER_ID}`
+                `https://plant-app-backend-87sk.onrender.com/api/zones/${user.id}`
             )
             .then((res) => {
                 setZonesList(
@@ -39,7 +40,7 @@ export default function SearchedPlantsList() {
     function getFavouritesIdList() {
         axios
             .get(
-                `https://plant-app-backend-87sk.onrender.com/api/users/${TEST_USER_ID}/fave_plants`
+                `https://plant-app-backend-87sk.onrender.com/api/users/${user.id}/fave_plants`
             )
             .then((res) => {
                 setFavouritesIdList(
