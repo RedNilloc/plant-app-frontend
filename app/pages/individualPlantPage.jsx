@@ -12,12 +12,11 @@ import PZFooter from "../components/footer"
 import { useEffect, useState } from "react"
 import IndividualPlant from "../pageContents/individualPlant"
 import { useIndividualPlant } from "../contexts/individualPlantContext"
-
-const TESTING_PLANT_ID = 1195
-const TESTING_USER_ID = 2
+import { useUser } from "../contexts/userContext"
 
 export default function IndividualPlantPage() {
     const { plant } = useIndividualPlant()
+    const { user } = useUser()
 
     return (
         <View style={{ height: "100%", backgroundColor: "#ffffff" }}>
@@ -25,10 +24,7 @@ export default function IndividualPlantPage() {
                 <ScrollView bounces={false}>
                     <PZHeader>Plant details</PZHeader>
                     <View style={styles.pageContent}>
-                        <IndividualPlant
-                            userId={TESTING_USER_ID}
-                            plantId={plant.id}
-                        />
+                        <IndividualPlant userId={user.id} plantId={plant.id} />
                     </View>
                 </ScrollView>
             </SafeAreaView>

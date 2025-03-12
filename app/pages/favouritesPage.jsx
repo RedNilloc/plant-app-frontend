@@ -4,8 +4,6 @@ import PZFooter from "../components/footer"
 import { StyleSheet } from "react-native"
 import Favourites from "../pageContents/favourites"
 
-TESTING_USER_ID = 2
-
 export default function FavouritesPage() {
     return (
         <View style={{ height: "100%", backgroundColor: "#ffffff" }}>
@@ -13,7 +11,7 @@ export default function FavouritesPage() {
                 <ScrollView bounces={false}>
                     <PZHeader>Favourites</PZHeader>
                     <View style={styles.pageContent}>
-                        <Favourites userId={TESTING_USER_ID} />
+                        <Favourites />
                     </View>
                 </ScrollView>
             </SafeAreaView>
