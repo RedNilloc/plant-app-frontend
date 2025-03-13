@@ -8,12 +8,22 @@ import {
     Alert,
 } from "react-native"
 import React, { useState, useEffect } from "react"
-import poison_ivy from "../../assets/images/poison-ivy.png.png"
+import PZLogo from "../../assets/images/plant_zone_logo.png"
 import { useRouter } from "expo-router"
 import axios from "axios"
 import { useUser } from "../contexts/userContext"
+import { FugazOne_400Regular } from "@expo-google-fonts/fugaz-one"
+import { useFonts } from "expo-font"
 
 export default function LoginForm() {
+    const [fontsLoaded] = useFonts({
+        FugazOne_400Regular,
+    })
+
+    if (!fontsLoaded) {
+        return <></>
+    }
+
     const router = useRouter()
     const [form, setForm] = useState({
         email: "",
@@ -55,7 +65,7 @@ export default function LoginForm() {
 
     return (
         <View style={styles.container}>
-            <Image source={poison_ivy} style={styles.headerImg} />
+            <Image source={PZLogo} style={styles.headerImg} />
             {/* <Text style={styles.title}>Log in to the Plant Zone!</Text>
         <Text style={styles.subtitle}>Why stop at a green thumb?</Text> */}
             <View style={styles.form}>
@@ -112,10 +122,10 @@ const styles = StyleSheet.create({
         flex: 1,
     },
     headerImg: {
-        width: 120,
-        height: 120,
+        width: 200,
+        height: 200,
         alignSelf: "center",
-        marginBottom: 36,
+        marginBottom: 20,
     },
     title: {
         fontSize: 27,
@@ -171,7 +181,7 @@ const styles = StyleSheet.create({
         backgroundColor: "#8EC255",
         margin: 20,
         padding: 10,
-        width: 220,
+        width: 230,
         alignSelf: "center",
     },
     text: {
