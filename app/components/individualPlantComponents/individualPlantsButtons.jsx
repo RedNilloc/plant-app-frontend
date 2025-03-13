@@ -126,7 +126,7 @@ export default function IndividualPlantsButtons({ userId, plantId }) {
         </TouchableOpacity>
         <TouchableOpacity style={styles.button} onPress={toggleFavourites}>
           <Text style={styles.buttonText}>
-            {isFavourite ? "Favourited  ★" : "Favourite ☆"}
+            {isFavourite ? "Favourited ★" : "Favourite ☆"}
           </Text>
         </TouchableOpacity>
       </View>
