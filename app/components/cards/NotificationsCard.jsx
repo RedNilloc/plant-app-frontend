@@ -1,9 +1,16 @@
-import { Text, View, StyleSheet, SafeAreaView } from "react-native";
+import {
+  Text,
+  View,
+  StyleSheet,
+  SafeAreaView,
+  TouchableOpacity,
+  Image,
+} from "react-native";
 import { FugazOne_400Regular } from "@expo-google-fonts/fugaz-one";
 import { Inter_300Light } from "@expo-google-fonts/inter";
 import { KronaOne_400Regular } from "@expo-google-fonts/krona-one";
 import { useFonts } from "expo-font";
-import { Button } from "@react-navigation/elements";
+import { useRouter } from "expo-router";
 
 export default function NotificationsCard({ plant }) {
   const [fontsLoaded] = useFonts({
@@ -11,30 +18,44 @@ export default function NotificationsCard({ plant }) {
     FugazOne_400Regular,
     KronaOne_400Regular,
   });
-
-  const needsWater = plant.daysSinceWatered > plant.wateringThreshold
-  // console.log(plant.daysSinceWatered, "pllLLLLLLEEEEEEEAAAASSSE")
-
+  const router = useRouter();
+  const needsWater = plant.daysSinceWatered > plant.wateringThreshold;
   return (
-    <SafeAreaView style={styles.container}>
-      <View style={styles.textContents}>  
-        <Text style={styles.titleText}>Important!</Text>
+    <TouchableOpacity
+      onPress={() => router.push("../../pages/yourPlantsPage")}
+      style={needsWater ? styles.containerYellow : styles.containerGreen}
+    >
+      <Image style={styles.thumbnail} source={{ uri: plant.default_image }} />
+      <View style={styles.textContents}>
+        
+        <Text style={styles.titleText}>
+          {needsWater ? "Important!" : "This plant is okay"}
+        </Text>
         <Text style={styles.lineOne}>
-          <Text>{console.log(plant.daysSinceWatered, "EEEEEEEEE")}</Text>
           {needsWater
-            ? `Oh no! You haven't watered your ${plant.common_name} since ${plant.last_watered}! ${plant.common_name} needs water badly!`
+            ? `Oh no! You haven't watered your ${plant.common_name} since ${plant.last_watered}. Your ${plant.common_name} needs water.`
             : `Your ${plant.common_name} is all good for now!`}
         </Text>
+        <Text style={styles.lineTwo}>
+          Press here to see your plants.
+        </Text>
       </View>
-    </SafeAreaView>
-  );  
+    </TouchableOpacity>
+  );
 }
 
 const styles = StyleSheet.create({
-  container: {
+  containerYellow: {
     display: "flex",
     flexDirection: "row",
-    backgroundColor: "#d9d9d9",
+    backgroundColor: "#FFEB99",
+    width: "80%",
+    marginBottom: "3%",
+  },
+  containerGreen: {
+    display: "flex",
+    flexDirection: "row",
+    backgroundColor: "#DFFFD6",
     width: "80%",
     marginBottom: "3%",
   },
@@ -55,10 +76,15 @@ const styles = StyleSheet.create({
     fontStyle: "italic",
     fontSize: 16,
   },
-  button: {
-    borderRadius: 0,
-    flex: 3,
-    maxWidth: "5%",
+  lineTwo: {
+    fontFamily: "Inter_300Light",
+    fontStyle: "italic",
+    fontSize: 12,
+  },
+  thumbnail: {
+    flex: 1,
+    maxWidth: "25%",
+    minWidth: "25%",
     height: "100%",
   },
 });
