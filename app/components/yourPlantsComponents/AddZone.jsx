@@ -57,32 +57,17 @@ export default function AddZoneToYourPlants() {
 
     axios
       .post(`https://plant-app-backend-87sk.onrender.com/api/zones`, newZone)
-      .then(() => {
-        const createdZone = Response.data.zone;
-        setZoneName("");
-        setlocationValue("");
-        setSunLightValue("");
+      .then((response) => {
+        const createdZone = response.data.zone;
+        setZoneName(createdZone.zone_name);
+        setOptimisticZone(true);
+        setlocationValue(null);
+        setSunLightValue(null);
         setError(null);
-        // setOptimisticZone(true);
       })
       .catch((error) => {
         setError("Error Adding Zone");
       });
-  };
-
-  const AddZoneSpace = () => {
-    if (zoneName.trim() === "") return;
-    // setZoneName([...zoneName, zoneName]);
-    // setNewZone("");
-    <View style={styles.headerRow}>
-      <Text style={styles.textSectionHeader}>{zoneName}</Text>
-      <TouchableOpacity
-        style={styles.newPlantButton}
-        onPress={() => router.push("/pages/searchPage")}
-      >
-        <Text style={styles.textButton}>+ Find New Plant</Text>
-      </TouchableOpacity>
-    </View>;
   };
 
   return (
@@ -90,16 +75,21 @@ export default function AddZoneToYourPlants() {
       {optimisticZone ? (
         <View style={styles.headerRow}>
           <Text style={styles.textSectionHeader}>{zoneName}</Text>
-          <TouchableOpacity
-            style={styles.newPlantButton}
-            onPress={() => router.push("/pages/searchPage")}
-          >
-            <Text style={styles.textButton}>+ Find New Plant</Text>
-          </TouchableOpacity>
+          <View style={styles.line} />
+          <View style={styles.addZoneContent}>
+            <Text style={styles.noPlantsText}>No plants added</Text>
+            <TouchableOpacity
+              style={styles.newPlantButton}
+              onPress={() => router.push("/pages/searchPage")}
+            >
+              <Text style={styles.textButton}>+ Find New Plant</Text>
+            </TouchableOpacity>
+          </View>
         </View>
       ) : (
         ""
       )}
+      <Text style={styles.addZoneHeaderText}>Add A New Zone</Text>
       <TextInput
         style={styles.input}
         placeholder="Enter Zone..."
@@ -181,11 +171,10 @@ const styles = StyleSheet.create({
   },
   input: {
     flex: 1,
-    borderColor: "#ccc",
+    borderColor: "#8EC255",
     borderWidth: 1,
     padding: 15,
-    borderRadius: 5,
-    width: "70%",
+    width: "74.6%",
     marginLeft: 50,
   },
   addButton: {
@@ -202,15 +191,12 @@ const styles = StyleSheet.create({
     paddingHorizontal: 10,
   },
   headerRow: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-    borderBottomWidth: 1,
-    borderColor: "#e3e3e3",
-    marginBottom: 10,
+    marginVertical: 10,
   },
   textSectionHeader: {
     fontSize: 24,
     fontWeight: "500",
+    marginLeft: 10,
   },
   noPlantsText: {
     textAlign: "center",
@@ -225,6 +211,24 @@ const styles = StyleSheet.create({
     width: "40%",
     justifyContent: "center",
     alignItems: "center",
-    alignSelf: "center",
+  },
+  addZoneContent: {
+    justifyContent: "center",
+    alignItems: "center",
+    marginTop: 10,
+  },
+  line: {
+    height: 1,
+    backgroundColor: "#ccc",
+    marginVertical: 10,
+    marginHorizontal: 8,
+  },
+  addZoneHeaderText: {
+    fontSize: 24,
+    textAlign: "center",
+    margin: 25,
+    color: "#8EC255",
+    fontWeight: "700",
+    marginTop: 70,
   },
 });
