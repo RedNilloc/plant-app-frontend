@@ -139,6 +139,13 @@ export default function AddZoneToYourPlants() {
           textStyle={{
             fontSize: 16,
           }}
+          dropDownContainerStyle={{
+            backgroundColor: "#FFFFFF",
+            marginLeft: 30,
+            marginRight: 50,
+            width: 290,
+            borderRadius: 0,
+          }}
           onChangeValue={handleIndoorOutdoor}
           listMode="SCROLLVIEW"
         />
