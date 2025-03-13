@@ -8,7 +8,7 @@ import { useRouter } from "expo-router"
 function PZFooter({ backAddress }) {
     const router = useRouter()
 
-    let backRoute = backAddress ? backAddress : "/"
+    let backRoute = backAddress ? backAddress : "/pages/homePage"
 
     return (
         <LinearGradient
