@@ -39,7 +39,6 @@ function WaterButtonCard({
   const { user } = useUser();
 
   const [plantDeleted, setPlantDeleted] = useState(false);
-  console.log(contents);
   const plantID = contents.plant_id;
   const ownedPlantID = contents.owned_plant_key;
 
@@ -70,7 +69,6 @@ function WaterButtonCard({
   }
 
   function patchWater() {
-    console.log(updateObj);
     setNeedsWatered(false);
     axios
       .patch(
@@ -89,8 +87,6 @@ function WaterButtonCard({
     const updatedPlants = ownedPlants.filter(
       (plant) => plant.plant_id !== plantID
     );
-    console.log(contents, "<-- Contents");
-    console.log(ownedPlantID, "<-- PlantID");
     axios
       .delete(
         `https://plant-app-backend-87sk.onrender.com/api/users/owned_plants/${ownedPlantID}`
