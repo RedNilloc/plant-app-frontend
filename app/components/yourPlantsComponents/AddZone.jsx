@@ -111,7 +111,7 @@ export default function AddZoneToYourPlants() {
           dropDownDirection="BOTTOM"
           dropDownContainerStyle={{
             backgroundColor: "#FFFFFF",
-            marginLeft: 50,
+            marginLeft: 30,
             marginRight: 50,
             width: 290,
             borderRadius: 0,
