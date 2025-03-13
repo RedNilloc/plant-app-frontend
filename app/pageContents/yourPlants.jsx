@@ -48,13 +48,12 @@ export default function YourPlants() {
 
   const fetchZones = async () => {
     try {
-      console.log(user.id, "<----- user");
       const response = await fetch(
         `https://plant-app-backend-87sk.onrender.com/api/zones/${user.id}`
       );
       if (!response.ok) throw new Error("Failed to fetch zones");
       const data = await response.json();
-      console.log(data.zones, "<-----------");
+
       setZones(data.zones);
     } catch (error) {
       console.error("Error fetching zones:", error);
@@ -70,7 +69,7 @@ export default function YourPlants() {
       );
       if (!response.ok) throw new Error("Failed to fetch plants");
       const data = await response.json();
-      console.log(data.plants, "<----------- owned plants");
+
       setOwnedPlants(data.plants);
     } catch (error) {
       console.error("Error fetching zones:", error);
@@ -159,12 +158,14 @@ export default function YourPlants() {
 
                   <View style={styles.sectionBody}>
                     {plantInZone.length > 0 ? (
-                      plantInZone.map((plant, index) => {
+                      plantInZone.map((plant) => {
                         return (
-                          <View style={styles.cardContainer}>
+                          <View
+                            style={styles.cardContainer}
+                            key={plant.plant_id}
+                          >
                             <WaterButtonCard
                               contents={plant}
-                              key={index}
                               ownedPlants={ownedPlants}
                               setOwnedPlants={setOwnedPlants}
                               zones={zones}
