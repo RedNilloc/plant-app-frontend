@@ -40,8 +40,12 @@ function WaterButtonCard({
 
   const [plantDeleted, setPlantDeleted] = useState(false);
 
-  const plantID = contents.owned_plant_key;
-  let updateObj = { plant_id: plantID, date: currentDay };
+  const plantID = contents.plant_id;
+
+  let updateObj = {
+    plant_id: plantID,
+    date: currentDay.toISOString().split("T")[0],
+  };
 
   const wateringThreshold = {
     Minimum: 10,
@@ -65,6 +69,7 @@ function WaterButtonCard({
   }
 
   function patchWater() {
+    console.log(updateObj);
     setNeedsWatered(false);
     axios
       .patch(
@@ -72,7 +77,7 @@ function WaterButtonCard({
         updateObj
       )
       .then((response) => {
-        console.log(response);
+        console.log(response.data, "response from patch");
       })
       .catch((error) => {
         console.log(error);
@@ -80,7 +85,6 @@ function WaterButtonCard({
   }
 
   const deletePlant = (ownedPlants) => {
-    console.log(ownedPlants, "<------ ownedplants");
     const updatedPlants = ownedPlants.filter(
       (plant) => plant.plant_id !== plantID
     );
