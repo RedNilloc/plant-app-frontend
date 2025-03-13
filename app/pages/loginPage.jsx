@@ -15,7 +15,7 @@ export default function LoginPage() {
                     </View>
                 </ScrollView>
             </SafeAreaView>
-            <PZFooter />
+            <PZFooter backAddress="/" />
         </View>
     )
 }

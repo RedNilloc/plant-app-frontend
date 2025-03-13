@@ -16,7 +16,7 @@ export default function Home() {
                     </View>
                 </ScrollView>
             </SafeAreaView>
-            <PZFooter />
+            <PZFooter backAddress="/" />
         </View>
     )
 }
