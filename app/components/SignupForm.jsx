@@ -90,30 +90,31 @@ export default function SignupForm() {
         autoCorrect={false}
         keyboardType="default"
         style={styles.inputControl}
-        placeholder="Your username here..."
+        placeholder="username"
         placeholderTextColor="#6b7280"
         value={form.username}
         onChangeText={(username) => setForm({ ...form, username })}
       ></TextInput>
 
       <Text style={styles.inputLabel}>
-        Come up with a unique but memorable password:
+        Please come up with a unique but memorable password:
       </Text>
 
       <TextInput
         secureTextEntry
         style={styles.inputControl}
-        placeholder="Your password here"
+        placeholder="password"
         placeholderTextColor="#6b7280"
         value={form.password}
         onChangeText={(password) => setForm({ ...form, password })}
       />
 
-      <Text style={styles.inputLabel}>Please confirm your password below:</Text>
+      <Text style={styles.inputLabel}>Please confirm your password:</Text>
 
       <TextInput
         secureTextEntry
         style={styles.inputControl}
+        placeholder="password confirmation"
         placeholderTextColor="#6b7280"
         value={form.passwordConfirm}
         onChangeText={(passwordConfirm) =>
