@@ -5,9 +5,10 @@ import { StyleSheet } from "react-native";
 import NotificationsCard from "../components/cards/NotificationsCard.jsx";
 import { useEffect, useState } from "react";
 import axios from "axios";
+import { useUser } from "../contexts/userContext.jsx";
 
 export default function NotificationsPage() {
-  const testUserId = 2;
+  const { user } = useUser();
   const [ownedPlants, setOwnedPlants] = useState([]);
   const [weatherData, setWeatherData] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -22,23 +23,20 @@ export default function NotificationsPage() {
   };
 
   useEffect(() => {
-    const currentDay = new Date().toISOString().split("T")[0]; //correct date format
+    const currentDay = new Date().toISOString().split("T")[0];
 
     axios
       .get(
-        `https://plant-app-backend-87sk.onrender.com/api/users/${testUserId}/owned_plants`
+        `https://plant-app-backend-87sk.onrender.com/api/users/${user.id}/owned_plants`
       )
       .then((response) => {
-        console.log(response.data, "This is the response data");
         const plantsWithWateringInfo = response.data.plants.map((plant) => {
           const lastWateredDate = new Date(plant.last_watered);
-          console.log(lastWateredDate, "This is the lastWateredDate");
-          // ? lastWateredDate
-          // : new Date("2025-03-03");
-          const timeDifference = new Date().getTime() - lastWateredDate.getTime();
-          console.log(timeDifference, "This is the timeDifference");
+
+          const timeDifference =
+            new Date().getTime() - lastWateredDate.getTime();
+
           const dayDifference = timeDifference / (1000 * 3600 * 24);
-          console.log(dayDifference, "This is the dayDifference");
 
           const threshold = wateringThreshold[plant.watering];
 
@@ -98,9 +96,6 @@ export default function NotificationsPage() {
         setLoading(false);
       });
   }, []);
-  useEffect(() => {
-    console.log(ownedPlants); // This will log when ownedPlants updates
-  }, [ownedPlants]);
 
   return (
     <View style={{ height: "100%", backgroundColor: "#ffffff" }}>
@@ -117,17 +112,6 @@ export default function NotificationsPage() {
                 {ownedPlants.map((plant, index) => (
                   <NotificationsCard key={index} plant={plant} />
                 ))}
-                <Text>
-                  Current Temperature: {weatherData?.current?.temp_c}°C
-                </Text>
-                <Text>
-                  Will it Ra?{" "}
-                  {
-                    weatherData?.forecast?.forecastday?.[0]?.day
-                      ?.daily_will_it_rain
-                  }
-                </Text>
-                <Text>Hnnnrgh? {weatherData?.current?.temp_f}F</Text>
               </>
             )}
           </View>
@@ -139,7 +123,7 @@ export default function NotificationsPage() {
 }
 
 const styles = StyleSheet.create({
-  sav: { flex: 1, backgroundColor: "#222926" },
+  sav: { flex: 1, backgroundColor: "#FFF" },
   pageContent: {
     paddingTop: "10%",
     justifyContent: "center",
